@@ -8,18 +8,20 @@
 </head>
 <body>
 
-    <div class="centerDiv">
-        <div class="lg">
+    <div class="lg">
+        <figure>
+            <img src="public/img/conf.png" alt="UPM Logo">
+        </figure>
+        <form action="/entrar" method="POST">
             <figure>
                 <img src="public/img/upm.png" alt="UPM Logo">
             </figure>
-            <form method="POST">
-                <input type="email" name="" id="">
-                <input type="password" name="" id="">
+            
+            <input type="email" name="email" id="" placeholder="E-mail">
+            <input type="password" name="passwd" id="" placeholder="Senha">
 
-                <button type="submit">Entrar</button>
-            </form>
-        </div>
+            <button type="submit">Entrar</button>
+        </form>
     </div>
     
 </body>

@@ -1,14 +1,15 @@
 <?php
     Class Event{
-        public $eventID;
-        public $eventTitle;
-        public $eventDate;
-        public $eventTime;
-        public $eventType;
-        public $eventDescription;
-        public $eventSpeakers;
-        public $eventTargetAudience;
-        public $eventPartners;
+        private $eventID;
+        private $eventTitle;
+        private $eventType;
+        private $eventFaculty;
+        private $eventSpeakers;
+        private $eventTargetAudience;
+        private $eventPartners;
+        private $eventDescription;
+        private $eventDate;
+        private $eventTime;
 
         public function __construct(){
             $this->eventID = 0;
@@ -22,17 +23,30 @@
             $this->eventPartners = "";
         }
 
+        public function get_eventID(){
+            return $this->eventID;
+        }
+        public function set_eventID($e_ID){
+            $this->eventID = $e_ID;
+        }
+
         public function get_eventTitle(){
             return $this->eventTitle;
         }
-        public function set_eventTitle($eventTitle){
-            $this->eventTitle = $eventTitle;
+        public function set_eventTitle($e_Title){
+            $this->eventTitle = $e_Title;
+        }
+        public function get_eventFaculty(){
+            return $this->eventFaculty;
+        }
+        public function set_eventFaculty($e_Faculty){
+            $this->eventFaculty = $e_Faculty;
         }
         public function get_eventDate(){
             return $this->eventDate;
         }
-        public function set_eventDate($eventDate){
-            $this->eventDate = $eventDate;
+        public function set_eventDate($e_Date){
+            $this->eventDate = $e_Date;
         }
         public function get_eventTime(){
             return $this->eventTime;

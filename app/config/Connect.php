@@ -11,7 +11,7 @@
             $this->password = "";
             $this->database = "sigenv";
 
-            $this->connect();
+            return $this->connect();
         }
 
         public function connect(){
