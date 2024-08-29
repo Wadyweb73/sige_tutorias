@@ -10,11 +10,11 @@
 
     <div class="lg">
         <figure>
-            <img src="public/img/conf.png" alt="UPM Logo">
+            <img src="public/img/kan.png" alt=" ">
         </figure>
         <form action="/registar" method="POST">
             <figure>
-                <img src="public/img/upm.png" alt="UPM Logo">
+                <img src="../../../public/img/cead.png" alt="UPM Logo">
             </figure>
             
             <input type="text" name="name" id="" placeholder="Nome">

@@ -10,11 +10,11 @@
 
     <div class="lg">
         <figure>
-            <img src="public/img/conf.png" alt="UPM Logo">
+            <img src="public/img/log.png" alt="UPM Logo">
         </figure>
         <form action="/entrar" method="POST">
             <figure>
-                <img src="public/img/upm.png" alt="UPM Logo">
+                <img src="../../../public/img/cead.png" alt="UPM Logo">
             </figure>
             
             <input type="email" name="email" id="" placeholder="E-mail">

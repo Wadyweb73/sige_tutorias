@@ -2,14 +2,10 @@
     require "app/config/Router.php";
 
     include "app/Models/User.php";
-    include "app/Models/Event.php";
-    include "app/Models/Faculty.php";
-    include "app/Models/Amphitheatre.php";
+    include "app/Models/Actividade.php";
 
     include "app/Controllers/UserController.php";
-    include "app/Controllers/EventController.php";
-    include "app/Controllers/FacultyController.php";
-    include "app/Controllers/AmphController.php";
+    include "app/Controllers/ActividadeController.php";
 
     include "app/Views/fragments/header.php";
 
@@ -58,77 +54,34 @@
     });
 
     //Evento
-    $router->get('/evento', function() {
-        include "app/Views/Event/show.php";
+    $router->get('/tutoria', function() {
+        include "app/Views/Actividade/show.php";
     });
-    $router->get('/evento/create', function() {
-        include "app/Views/Event/create.php";
+    $router->get('/tutoria/create', function() {
+        include "app/Views/Actividade/create.php";
     });
-    $router->get('/evento/edit', function() {
-        include "app/Views/Event/edit.php";
+    $router->get('/tutoria/edit', function() {
+        include "app/Views/Actividade/edit.php";
     });
 
-    $router->post('/evento/create', function() {
+    $router->post('/tutoria/create', function() {
         //
-        $event = new Event();
-        $eventController = new EventController();
+        $tutoria = new Tutoria();
+        $tutoriaController = new ActividadeController();
         
-        $event->set_eventTitle($_POST['tema']);
-        $event->set_eventType($_POST['tipoEvento']);
-        $event->set_eventFaculty($_POST['faculdade']);
-        $event->set_eventSpeakers($_POST['orador']);
-        $event->set_eventTargetAudience($_POST['publicoAlvo']);
-        $event->set_eventPartners($_POST['parceiro']);
-        $event->set_eventDescription($_POST['descricao']);
-        $event->set_eventDate($_POST['datestart']." ".$_POST['timestart']);
-        $event->set_eventTime($_POST['dateend']." ".$_POST['timeend']);      
+        $tutoria->set_tutoriaAssunto($_POST['assunto']);
+        $tutoria->set_tutoriaNum($_POST['tutnum']);
+        $tutoria->set_tutoriaLocal($_POST['local']);
+        $tutoria->set_tutoriaNumEst($_POST['numEst']);
+        $tutoria->set_tutoriaStart($_POST['datestart']." ".$_POST['timestart']);
+        $tutoria->set_tutoriaEnd($_POST['dateend']." ".$_POST['timeend']);      
         
-        /*
-        if($eventController->createEvent($event->get_eventTitle(), $event->get_eventType(), $event->get_eventFaculty(), $event->get_eventSpeakers(), $event->get_eventTargetAudience(), $event->get_eventPartners(), $event->get_eventDescription(), $event->get_eventDate(), $event->get_eventTime())){
-            header("Location: /evento");
-        }*/
-        if($eventController->createEvent($event)){
-            header("Location: /evento");
+        if($tutoriaController->createTutoria($tutoria)){
+            header("Location: /tutoria");
         }
         
     });
-    $router->post('/evento/edit', function() {
-        //
-    });
-
-    //Anfitetro
-    $router->get('/anfiteatro', function() {
-        include "app/Views/Amphitheatre/show.php";
-    });
-    $router->get('/anfiteatro/create', function() {
-        include "app/Views/Amphitheatre/create.php";
-    });
-    $router->get('/anfiteatro/edit', function() {
-        include "app/Views/Amphitheatre/edit.php";
-    });
-
-    $router->post('/anfiteatro/create', function() {
-        //
-    });
-    $router->post('/anfiteatro/edit', function() {
-        //
-    });
-   
-    //Faculdade
-    $router->get('/faculdade', function() {
-        include "app/Views/Faculty/show.php";
-    });
-    $router->get('/faculdade/create', function() {
-        include "app/Views/Faculty/create.php";
-    });
-    $router->get('/faculdade/edit', function() {
-        include "app/Views/Faculty/edit.php";
-    });
-
-    $router->post('/faculdade/create', function() {
-        //
-    });
-    $router->post('/faculdade/edit', function() {
+    $router->post('/tutoria/edit', function() {
         //
     });
 

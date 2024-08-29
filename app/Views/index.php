@@ -9,42 +9,13 @@
 <body>
 
     <main>
-    <?php 
-    if(isset($_SESSION['category']) && $_SESSION['category'] == "Admin"){
-        echo "
-        <aside>
-        <ul>
-            <li><strong>Eventos</strong></li>
-            <li><a href='/evento'>Visualizar</a></li>
-            <li><a href='/evento/create'>Registar</a></li>
-        </ul>
-        <ul>
-            <li><strong>Anfiteatros</strong></li>
-            <li><a href='/anfiteatro'>Visualizar</a></li>
-            <li><a href='/anfiteatro/create'>Registar</a></li>
-        </ul>
-        <ul>
-            <li><strong>Faculdades</strong></li>
-            <li><a href='/faculdade'>Visualizar</a></li>
-            <li><a href='/faculdade/create'>Registar</a></li>
-        </ul>
-        </aside>
-        ";
-    }else{
-        echo "
-        <aside>
-        <ul>
-            <li><strong>Eventos</strong></li>
-            <li><a href='/evento'>Visualizar</a></li>
-        </ul>
-        </aside>
-        ";
-    }
-    ?>
+        <?php
+            include "app/Views/fragments/aside.php";
+        ?>
     
-    <section>
-
-    </section>
+        <section class="show">
+            
+        </section>
     </main>
 </body>
 </html>

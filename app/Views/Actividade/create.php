@@ -11,24 +11,16 @@
 
     <div class="lg">
         <figure>
-            <img src="../../../public/img/conf.png" alt="UPM Logo">
+            <img src="../../../public/img/log.png" alt="UPM Logo">
         </figure>
         <form action="/evento/create" method="POST">
-            <b>Evento</b>
+            <b>Registar Tutoria</b>
             <br>
             
-            <input type="text" name="tema" id="" placeholder="Tema">
-            <select name="tipoEvento" id="">
-                <option value="Colóquio">Colóquio</option>
-                <option value="Conferência">Conferencia</option>
-                <option value="Mesa Redonda">Mesa Redonda</option>
-                <option value="Workshop">Workshop</option>
-                <option value="Jornadas Científicas">Jornadas Científicas</option>
-            </select>
-            <input type="text" name="faculdade" id="" placeholder="Faculdade">
-            <input type="text" name="orador" id="" placeholder="Oradores">
-            <input type="text" name="publicoAlvo" id="" placeholder="Público alvo">
-            <input type="text" name="parceiro" id="" placeholder="Parceiros">
+            <input type="text" name="assunto" id="" placeholder="Assunto">
+            <input type="text" name="num" id="" placeholder="Tutoria Nr.">
+            <input type="text" name="local" id="" placeholder="Local">
+            <input type="text" name="numEst" id="" placeholder="Numero de estudantes">
             <textarea name="descricao" id="" placeholder="Descrição"></textarea>
             <fieldset id="datas">
                 <fieldset>
