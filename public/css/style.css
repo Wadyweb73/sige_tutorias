@@ -126,6 +126,9 @@ aside ul li img{
     height: 30px;
     margin: 0 8px;
 }
+aside ul li:hover > img{
+    background-color: #fff;
+}
 .show{
     background-color: #f1f1f1;
     margin: .6em .4em;
