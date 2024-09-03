@@ -26,6 +26,7 @@
             $this->endereco = $endereco;
         }
 
+        //DB
         public function visualizarFaculdade(){
 
         }
