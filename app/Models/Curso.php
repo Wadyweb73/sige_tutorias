@@ -1,5 +1,5 @@
 <?php
-    Class Disciplina{
+    Class Curso{
         private $id_curso;
         private $id_faculdade;
         private $nome_curso;
