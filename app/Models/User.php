@@ -6,7 +6,7 @@
         private $uEmail;
         private $uPasswd;
         private $uCategory;
-
+        
         public function get_uID(){
             return $this->uID;
         }
