@@ -19,28 +19,42 @@
     });
 
 
-    
-    $router->post('/sige_tutorias/registar', function() {
-        // $faculdade = new Faculdade();
-        // $faculdade->set_nomeFaculdade($_POST['nome_faculdade']);
-        // $faculdade->set_endereco($_POST['endereco']);
-        // $faculdade->registarFaculdade($faculdade);
-
-
-
+    /*----------------- FACULDADE ----------------------*/
+    $router->post('/sige_tutorias/faculdade/registar', function() {
         $faculdade = new Faculdade();
         $faculdadeController = new FaculdadeController();
     
         $faculdade->set_nomeFaculdade($_POST['nome_faculdade']);
         $faculdade->set_endereco($_POST['endereco']);
-        
-        
         $faculdadeController->registarFaculdade($faculdade);
 
         //echo "rota para registar funcionando";
     });
 
 
+    $router->get('/sige_tutorias/faculdade/{id}', function($id) {
+        $faculdadeController = new FaculdadeController();
+        $faculdadeController->visualizarFaculdade($id);
+    });
+    
+    $router->get('/sige_tutorias/faculdades', function() {
+        $faculdadeController = new FaculdadeController();
+        $faculdadeController->listarFaculdades();
+        
+    });
+    
+    $router->post('/sige_tutorias/faculdade/{id}/actualizar', function($id) {
+        $faculdadeController = new FaculdadeController();
+        $faculdadeController->actualizarFaculdade($id, $_POST['nome_faculdade'], $_POST['endereco']);
+    });
+    
+
+    $router->delete('/sige_tutorias/faculdade/{id}/apagar', function($id) {
+        $faculdadeController = new FaculdadeController();
+        $faculdadeController->apagarFaculdade($id);
+    });
+
+    // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
         include "public/index.php";
     });
