@@ -5,15 +5,19 @@
         public function get($path, $callback) {
             $this->routes['GET'][$path] = $callback;
         }
-
+    
         public function post($path, $callback) {
             $this->routes['POST'][$path] = $callback;
         }
-
+    
         public function run() {
             $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
             $method = $_SERVER['REQUEST_METHOD'];
-
+    
+            // Testando se pega a url
+            echo "Path: " . $path . "<br>";
+            echo "Method: " . $method . "<br>";
+    
             if (isset($this->routes[$method][$path])) {
                 call_user_func($this->routes[$method][$path]);
             } else {

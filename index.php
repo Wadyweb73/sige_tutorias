@@ -7,9 +7,39 @@
     include "app/Controllers/UserController.php";
     include "app/Controllers/ActividadeController.php";
 
-    include "app/Views/fragments/header.php";
+    include "app/Models/Faculdade.php";
+    include "app/Controllers/FaculdadeController.php";
+
+    //include "app/Views/fragments/header.php";
 
     $router = new Router();
+    
+    $router->get('/sige_tutorias/teste', function() {
+        echo "Rota de teste funcionando!";
+    });
+
+
+    
+    $router->post('/sige_tutorias/registar', function() {
+        // $faculdade = new Faculdade();
+        // $faculdade->set_nomeFaculdade($_POST['nome_faculdade']);
+        // $faculdade->set_endereco($_POST['endereco']);
+        // $faculdade->registarFaculdade($faculdade);
+
+
+
+        $faculdade = new Faculdade();
+        $faculdadeController = new FaculdadeController();
+    
+        $faculdade->set_nomeFaculdade($_POST['nome_faculdade']);
+        $faculdade->set_endereco($_POST['endereco']);
+        
+        
+        $faculdadeController->registarFaculdade($faculdade);
+
+        //echo "rota para registar funcionando";
+    });
+
 
     $router->get('/', function() {
         include "public/index.php";
@@ -20,6 +50,8 @@
     $router->get('/exit', function() {
         session_destroy();
     });
+
+    
 
     //Auth
     $router->get('/entrar', function() {
@@ -86,19 +118,5 @@
     });
 
 
-
     $router->run();
-    // echo $_SERVER['REQUEST_URI'];
-    // function rota($rotas, $f){
-    //     if($_SERVER['REQUEST_URI'] == $rotas){
-    //         $f();
-    //         exit();
-    //     }
-    // }
-    // rota("/", function() {
-    //     echo "Hello";
-    // });
-    // rota("/about", function() {
-    //     echo "<h1>Hello world</h1>";
-    //     new Login();
-    // });
+
