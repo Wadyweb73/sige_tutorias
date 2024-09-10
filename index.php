@@ -2,10 +2,11 @@
     require "app/config/Router.php";
 
     include "app/Models/User.php";
-    include "app/Models/Actividade.php";
-
     include "app/Controllers/UserController.php";
-    include "app/Controllers/ActividadeController.php";
+ 
+
+    include "app/Models/Tutoria.php";
+    include "app/Controllers/TutoriaController.php";
 
     include "app/Models/Faculdade.php";
     include "app/Controllers/FaculdadeController.php";
@@ -54,6 +55,56 @@
         $faculdadeController->apagarFaculdade($id);
     });
 
+
+    // tutoria
+    $router->post('/sige_tutorias/tutoria/registar', function() {
+        $tutoria = new Tutoria();
+        $tutoriaController = new TutoriaController();
+    
+        $tutoria->setIdDisciplina($_POST['id_disciplina']);
+        $tutoria->setIdDocente($_POST['id_docente']);
+        $tutoria->setHoraInicio($_POST['hora_inicio']);
+        $tutoria->setHoraTermino($_POST['hora_termino']);
+        $tutoria->setDataRegisto($_POST['data_registo']);
+        $tutoria->setDataRealizacao($_POST['data_realizacao']);
+        $tutoria->setDescricao($_POST['descricao']);
+        
+        $tutoriaController->registarTutoria($tutoria);
+    });
+    
+   
+    $router->get('/sige_tutorias/tutoria/{id}', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->visualizarTutoria($id);
+    });
+    
+ 
+    $router->get('/sige_tutorias/tutorias', function() {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->listarTutorias();
+    });
+    
+  
+    $router->post('/sige_tutorias/tutoria/{id}/actualizar', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->actualizarTutoria(
+            $id,
+            $_POST['id_disciplina'],
+            $_POST['id_docente'],
+            $_POST['hora_inicio'],
+            $_POST['hora_termino'],
+            $_POST['data_registo'],
+            $_POST['data_realizacao'],
+            $_POST['descricao']
+        );
+    });
+    
+    $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->apagarTutoria($id);
+    });
+    
+
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
         include "public/index.php";
@@ -99,38 +150,26 @@
         
     });
 
-    //Evento
-    $router->get('/tutoria', function() {
-        include "app/Views/Actividade/show.php";
-    });
-    $router->get('/tutoria/create', function() {
-        include "app/Views/Actividade/create.php";
-    });
-    $router->get('/tutoria/edit', function() {
-        include "app/Views/Actividade/edit.php";
-    });
+    //--------------------- tutoria ---------------------- //
+        // $router->get('/tutoria', function() {
+        //     include "app/Views/Actividade/show.php";
+        // });
+        // $router->get('/tutoria/create', function() {
+        //     include "app/Views/Actividade/create.php";
+        // });
+        // $router->get('/tutoria/edit', function() {
+        //     include "app/Views/Actividade/edit.php";
+        // });
 
-    $router->post('/tutoria/create', function() {
+    $router->post('/tutoria/registar', function() {
         //
         $tutoria = new Tutoria();
-        $tutoriaController = new ActividadeController();
+        $tutoriaController = new TutoriaController();
         
-        $tutoria->set_tutoriaAssunto($_POST['assunto']);
-        $tutoria->set_tutoriaNum($_POST['tutnum']);
-        $tutoria->set_tutoriaLocal($_POST['local']);
-        $tutoria->set_tutoriaNumEst($_POST['numEst']);
-        $tutoria->set_tutoriaStart($_POST['datestart']." ".$_POST['timestart']);
-        $tutoria->set_tutoriaEnd($_POST['dateend']." ".$_POST['timeend']);      
         
-        if($tutoriaController->createTutoria($tutoria)){
-            header("Location: /tutoria");
-        }
+       
         
     });
-    $router->post('/tutoria/edit', function() {
-        //
-    });
-
-
+   
     $router->run();
 
