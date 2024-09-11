@@ -17,6 +17,9 @@
     include "app/Models/Curso.php";
     include "app/Controllers/CursoController.php";
 
+    include "app/Models/Tutoria.php";
+    include "app/Controllers/TutoriaController.php";
+
     //include "app/Views/fragments/header.php";
 
     $router = new Router();
@@ -142,6 +145,47 @@
     $router->delete('/sige_tutorias/curso/{id}/apagar', function($id) {
         $cursoController = new CursoController();
         $cursoController->apagarCurso($id);
+    });
+
+    // tutoria
+    $router->post('/sige_tutorias/tutoria/registar', function() {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->registarTutoria(
+            $_POST['id_disciplina'],
+            $_POST['id_docente'],
+            $_POST['hora_inicio'],
+            $_POST['hora_termino'],
+            $_POST['data_realizacao'],
+            $_POST['descricao']
+        );
+    });
+    
+    $router->get('/sige_tutorias/tutorias', function() {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->listarTutorias();
+    });
+    
+    $router->get('/sige_tutorias/tutoria/{id}', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->visualizarTutoria($id);
+    });
+    
+    $router->post('/sige_tutorias/tutoria/{id}/actualizar', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->actualizarTutoria(
+            $id,
+            $_POST['id_disciplina'],
+            $_POST['id_docente'],
+            $_POST['hora_inicio'],
+            $_POST['hora_termino'],
+            $_POST['data_realizacao'],
+            $_POST['descricao']
+        );
+    });
+    
+    $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->apagarTutoria($id);
     });
 
     // --------------- Rota que nao sei qual e a ideia -------------//
