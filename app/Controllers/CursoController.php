@@ -21,7 +21,7 @@ class CursoController{
     public function listarCursos(){
         $cursoList = new Curso();
         $curso = $cursoList->listarCursos();
-        echo json_encode($sql);
+        echo json_encode($curso);
         
     }
 
@@ -30,19 +30,14 @@ class CursoController{
         $curso = new Curso();
         $curso->set_nomeCurso($nomeCurso);
         $curso-> set_idFaculdade($idFaculdade);
-        $curso-> actualizarCurso();
+        $curso-> actualizarCurso($id);
     }
 
     public function apagarCurso($id) {
         $curso = new Curso();
-        $curso->apagarFaculdade($id);
+        $curso->apagarCurso($id);
     }
 
-
-
-
 }
-
-
 
 ?>

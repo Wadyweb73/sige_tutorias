@@ -34,7 +34,7 @@
            $nomeCurso = $this->get_nomeCurso();
            $idFaculdade =$this->get_idFaculdade();
 
-           $sqlRegistar = "INSERT INTO curso ('nome_curso','id_faculdade') VALUES ('$nomeCurso','$idFaculdade')";
+           $sqlRegistar = "INSERT INTO `curso` (`nome_curso`,`id_faculdade`) VALUES ('$nomeCurso','$idFaculdade')";
            
             if(mysqli_query($connection,$sqlRegistar)){
                 echo 'Faculdade Registada com Sucesso...';
@@ -47,18 +47,18 @@
         }
 
 
-        public function visualizarCurso(){
+        public function visualizarCurso($id){
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlVisualizar = "SELECT * FROM 'curso' WHERE 'id_curso'= ?";
+            $sqlVisualizar = "SELECT * FROM `curso` WHERE `id_curso`= ?";
             $stmt = $connection->prepare($sqlVisualizar);
             $stmt->bind_param("i",$id);
 
             if($stmt->execute()){
                 $resultado = $stmt->get_result();
                 if($resultado->num_rows >0){
-                    $curso = $resultado->fetch-assoc();
+                    $curso = $resultado->fetch_assoc();
 
                     return $curso;
                 }else {
@@ -72,11 +72,11 @@
             mysqli_close($connection);
         }
 
-        public function lsitarCursos(){
+        public function listarCursos(){
             $conn = new Connect();
             $connection = $conn ->connect();
 
-            $sqlListar = "SELECT * FROM 'curso'";
+            $sqlListar = "SELECT * FROM `curso`";
             $resultado = $connection->query($sqlListar);
 
             $cursos = [];
@@ -94,11 +94,11 @@
             $conn = new Connect();
             $connection =$conn->connect();
 
-            $sqlActualizar = "UPDATE 'curso' SET 'nome_curso'=?,'id_faculdade'=? WHERE 'id_curso' = ?";
+            $sqlActualizar = "UPDATE `curso` SET `nome_curso`=?,`id_faculdade`=? WHERE `id_curso` = ?";
             $stmt = $connection->prepare($sqlActualizar);
             $stmt->bind_param("under",$this->nome_curso,$this->id_faculdade,$id);
 
-            if($stmt>execute()){
+            if($stmt->execute()){
                 echo'Curso Actualizado';
             }else {
                 echo 'ERRO ao Actualizar a Faculdade';

@@ -14,6 +14,9 @@
     include "app/Models/Docente.php";
     include "app/Controllers/DocenteController.php";
 
+    include "app/Models/Curso.php";
+    include "app/Controllers/CursoController.php";
+
     //include "app/Views/fragments/header.php";
 
     $router = new Router();
@@ -101,6 +104,23 @@
         $docenteController->apagarDocente($id);
     });
 
+    
+
+    // curso
+
+    $router->post('/sige_tutorias/curso/registar', function() {
+        $curso = new Curso();
+        $cursoController = new CursoController();
+
+        $curso->set_idFaculdade($_POST['id_faculdade']);
+        $curso->set_nomeCurso($_POST['nome']);
+        $cursoController->registarCurso($curso);
+    });
+
+    $router->get('/sige_tutorias/cursos', function() {
+        $cursoController = new CursoController();
+        $cursoController->listarCursos();
+    });
 
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
