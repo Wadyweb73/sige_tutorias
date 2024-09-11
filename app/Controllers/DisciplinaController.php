@@ -8,9 +8,9 @@ public function registarDisciplina($disciplina){
 }
 
 
-public function visualizarCurso($id){
+public function visualizarDisciplina($id){
     $disciplina = new Disciplina();
-    $dadosDisciplina = $disciplina->visualizarCurso($id);
+    $dadosDisciplina = $disciplina->visualizarDisciplina($id);
 
     if($dadosDisciplina){
         echo json_encode($dadosDisciplina);
@@ -20,8 +20,8 @@ public function visualizarCurso($id){
 
 public function listarDisciplinas(){
     $disciplinaList = new Disciplina();
-    $disciplina = $disciplinaList->listarDisciplina();
-    echo json_encode($sql);
+    $disciplina = $disciplinaList->listarDisciplinas();
+    echo json_encode($disciplina);
     
 }
 
@@ -29,15 +29,13 @@ public function actualizarDisciplina($idDisciplina,$nomeDisciplina,$idCurso){
     $disciplina = new Disciplina();
     $disciplina->set_nomeDisciplina($nomeDisciplina);
     $disciplina-> set_idCurso($idCurso);
-    $disciplina-> actualizarDisciplina();
+    $disciplina-> actualizarDisciplina($idDisciplina);
 }
 
 public function apagarDisciplina($id) {
     $disciplina = new Disciplina();
     $disciplina->apagarDisciplina($id);
 }
-
-
 
 
 }
