@@ -18,8 +18,8 @@
     include "app/Models/Curso.php";
     include "app/Controllers/CursoController.php";
 
-    include "app/Models/Tutoria.php";
-    include "app/Controllers/TutoriaController.php";
+    // include "app/Models/Tutoria.php";
+    // include "app/Controllers/TutoriaController.php";
 
     //include "app/Views/fragments/header.php";
 
@@ -65,6 +65,133 @@
         $faculdadeController->apagarFaculdade($id);
     });
 
+
+    // Docente
+    $router->post('/sige_tutorias/docente/registar', function() {
+        $docente = new Docente();
+        $docenteController = new DocenteController();
+
+        $docente->set_idFaculdade($_POST['id_faculdade']);
+        $docente->set_idCurso($_POST['id_curso']);
+        $docente->set_idDisciplina($_POST['id_disciplina']);
+        $docente->set_nome($_POST['nome']);
+        
+        $docenteController->registarDocente($docente);
+    });
+
+    $router->get('/sige_tutorias/docente/{id}', function($id) {
+        $docenteController = new DocenteController();
+        $docenteController->visualizarDocente($id);
+    });
+
+   
+    $router->get('/sige_tutorias/docentes', function() {
+        $docenteController = new DocenteController();
+        $docenteController->listarDocentes();
+    });
+
+
+    $router->post('/sige_tutorias/docente/{id}/actualizar', function($id) {
+        $docenteController = new DocenteController();
+        $docenteController->actualizarDocente(
+            $id,
+            $_POST['id_faculdade'],
+            $_POST['id_curso'],
+            $_POST['id_disciplina'],
+            $_POST['nome']
+        );
+    });
+
+  
+    $router->delete('/sige_tutorias/docente/{id}/apagar', function($id) {
+        $docenteController = new DocenteController();
+        $docenteController->apagarDocente($id);
+    });
+
+    
+
+    // curso
+
+    $router->post('/sige_tutorias/curso/registar', function() {
+        $curso = new Curso();
+        $cursoController = new CursoController();
+
+        $curso->set_idFaculdade($_POST['id_faculdade']);
+        $curso->set_nomeCurso($_POST['nome']);
+        $cursoController->registarCurso($curso);
+    });
+
+    $router->get('/sige_tutorias/cursos', function() {
+        $cursoController = new CursoController();
+        $cursoController->listarCursos();
+    });
+
+    $router->get('/sige_tutorias/curso/{id}', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->visualizarCurso($id);
+    });
+
+    $router->post('/sige_tutorias/curso/{id}/actualizar', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->actualizarCurso(
+            $id,
+            $_POST['id_faculdade'],
+            $_POST['id_curso'],
+            $_POST['id_disciplina'],
+            $_POST['nome']
+        );
+    });
+
+  
+    $router->delete('/sige_tutorias/curso/{id}/apagar', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->apagarCurso($id);
+    });
+
+    // tutoria
+    $router->post('/sige_tutorias/tutoria/registar', function() {
+
+        $tutoriaController = new TutoriaController();
+        
+        $tutoriaController->registarTutoria( $_POST['id_disciplina'],
+                                            $_POST['id_docente'],
+                                            $_POST['hora_inicio'],
+                                            $_POST['hora_termino'],
+                                            $_POST['data_registo'],
+                                            $_POST['data_realizacao'],
+                                            $_POST['descricao']);
+    });
+    
+    $router->get('/sige_tutorias/tutorias', function() {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->listarTutorias();
+    });
+    
+    $router->get('/sige_tutorias/tutoria/{id}', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->visualizarTutoria($id);
+    });
+    
+    $router->post('/sige_tutorias/tutoria/{id}/actualizar', function($id) {
+
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->actualizarTutoria(
+            $id,
+            $_POST['id_disciplina'],
+            $_POST['id_docente'],
+            $_POST['hora_inicio'],
+            $_POST['hora_termino'],
+            $_POST['data_registo'],
+            $_POST['data_realizacao'],
+            $_POST['descricao']
+        );
+    });
+    
+    $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
+        $tutoriaController = new TutoriaController();
+        $tutoriaController->apagarTutoria($id);
+    });
+
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
         include "public/index.php";
@@ -96,52 +223,6 @@
         }
         
     });
-    $router->post('/registar', function() {
-        $user = new User();
-        $userController = new UserController();
-        $user->set_uName($_POST['name']);
-        $user->set_uSurname($_POST['surname']);
-        $user->set_uEmail($_POST['email']);
-        $user->set_uPasswd($_POST['passwd']);
-        
-        if($userController->signin($user->get_uName(), $user->get_uSurname(), $user->get_uEmail(), $user->get_uPasswd())){
-            header("Location: /entrar");
-        }
-        
-    });
-
-    //Evento
-    $router->get('/tutoria', function() {
-        include "app/Views/Actividade/show.php";
-    });
-    $router->get('/tutoria/create', function() {
-        include "app/Views/Actividade/create.php";
-    });
-    $router->get('/tutoria/edit', function() {
-        include "app/Views/Actividade/edit.php";
-    });
-
-    $router->post('/tutoria/create', function() {
-        //
-        $tutoria = new Tutoria();
-        $tutoriaController = new ActividadeController();
-        
-        $tutoria->set_tutoriaAssunto($_POST['assunto']);
-        $tutoria->set_tutoriaNum($_POST['tutnum']);
-        $tutoria->set_tutoriaLocal($_POST['local']);
-        $tutoria->set_tutoriaNumEst($_POST['numEst']);
-        $tutoria->set_tutoriaStart($_POST['datestart']." ".$_POST['timestart']);
-        $tutoria->set_tutoriaEnd($_POST['dateend']." ".$_POST['timeend']);      
-        
-        if($tutoriaController->createTutoria($tutoria)){
-            header("Location: /tutoria");
-        }
-        
-    });
-    $router->post('/tutoria/edit', function() {
-        //
-    });
-
-
+   
     $router->run();
 
