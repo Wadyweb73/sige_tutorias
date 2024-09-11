@@ -9,7 +9,6 @@ class DocenteController{
     }
     
 
-
     public function visualizarDocente($id){
         $docente = new Docente();
         $dadosDocente = $docente->visualizarDocente($id);
@@ -22,18 +21,18 @@ class DocenteController{
     public function listarDocentes(){
         $docenteList = new Docente();
         $docente = $docenteList->listarDocentes();
-        echo json_encode($sql);
+        echo json_encode($docente);
         
     }
 
 
-    public function actualizarDocente($idFaculdade,$idCurso,$idDisciplina,$nome){
+    public function actualizarDocente($id,$idFaculdade,$idCurso,$idDisciplina,$nome){
         $docente = new Docente();
         $docente->set_idFaculdade($idFaculdade);
         $docente-> set_idCurso($idCurso);
         $docente-> set_idDisciplina($idDisciplina);
         $docente-> set_nome($nome);
-        $docente-> actualizarDocente();
+        $docente-> actualizarDocente($id);
     }
     
     public function apagarDocente($id) {
@@ -41,15 +40,6 @@ class DocenteController{
         $docente->apagarDocente($id);
     }
     
-
-
-
-
-
-
-
-
-
 
 }
 

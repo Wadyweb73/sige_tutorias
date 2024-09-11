@@ -49,9 +49,10 @@
             $nome = $this->get_nome();
             $idFaculdade = $this->get_idFaculdade();
             $idCurso = $this->get_idCurso();
-            $idDisciplina = $this->idDisciplina();
+            $idDisciplina = $this->get_idDisciplina();
 
-            $sqlRegistar = "INSERT INTO 'docente' ('id_docente', 'id_faculdade','id_curso','id_disciplina','nome_docente') VALUES ('$idDocente', '$idFaculdade','$idCurso','$idDisciplina','$nome')";
+            $sqlRegistar = "INSERT INTO `docente` (`id_docente`, `id_faculdade`, `id_curso`, `id_disciplina`, `nome_docente`) 
+            VALUES ('$idDocente', '$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
 
             if (mysqli_query($connection, $sqlRegistar)) {
                 echo "Docente registada com sucesso!";
@@ -64,13 +65,13 @@
 
 
 
-        public function visualizarDocente(){
+        public function visualizarDocente($id){
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlVisualizar = "SELECT * FROM 'docente' WHERE `id_docente` = ?";
+            $sqlVisualizar = "SELECT * FROM `docente` WHERE `id_docente` = ?";
             $stmt = $connection->prepare($sqlVisualizar);
-            $stmt->bind_param("under", $id);
+            $stmt->bind_param("i", $id);
 
             if ($stmt->execute()) {
                 $resultado = $stmt->get_result();
@@ -96,7 +97,7 @@
             $conn = new Connect();
             $connection = $conn->connect();
         
-            $sqlListar = "SELECT * FROM 'docente'";
+            $sqlListar = "SELECT * FROM `docente`";
             $resultado = $connection->query($sqlListar);
         
             $docente = [];
@@ -115,9 +116,9 @@
            $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlAtualizar = "UPDATE 'docente' SET  'id_faculdade' = ?,'id_curso'=? ,'id_disciplina'=?,'nome_docente'=? WHERE 'id_docente' = ?";
+            $sqlAtualizar = "UPDATE `docente` SET  'id_faculdade' = ?,'id_curso'=? ,'id_disciplina'=?,'nome_docente'=? WHERE 'id_docente' = ?";
             $stmt = $connection->prepare($sqlAtualizar);
-            $stmt->bind_param("under", $this->id_faculdade,$this->curso,$this->disciplina,$this->nome, $id);
+            $stmt->bind_param("iiisi", $this->id_faculdade,$this->id_curso,$this->id_disciplina,$this->nome, $id);
 
             if ($stmt->execute()) {
                 echo "Docente actualizado!";
@@ -135,9 +136,9 @@
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlApagar = "DELETE FROM 'docente' WHERE 'id_docente' = ?";
+            $sqlApagar = "DELETE FROM `docente1` WHERE 'id_docente' = ?";
             $stmt = $connection->prepare($sqlApagar);
-            $stmt->bind_param("under", $id);
+            $stmt->bind_param("i", $id);
         
             if ($stmt->execute()) {
                 echo "Docente apagado com sucesso!";
