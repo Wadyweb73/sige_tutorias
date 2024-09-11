@@ -122,6 +122,28 @@
         $cursoController->listarCursos();
     });
 
+    $router->get('/sige_tutorias/curso/{id}', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->visualizarCurso($id);
+    });
+
+    $router->post('/sige_tutorias/curso/{id}/actualizar', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->actualizarCurso(
+            $id,
+            $_POST['id_faculdade'],
+            $_POST['id_curso'],
+            $_POST['id_disciplina'],
+            $_POST['nome']
+        );
+    });
+
+  
+    $router->delete('/sige_tutorias/curso/{id}/apagar', function($id) {
+        $cursoController = new CursoController();
+        $cursoController->apagarCurso($id);
+    });
+
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
         include "public/index.php";
