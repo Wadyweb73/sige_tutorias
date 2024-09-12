@@ -9,7 +9,7 @@
             $this->hostname = "localhost";
             $this->username = "root";
             $this->password = "";
-            $this->database = "sigetutoria";
+            $this->database = "Sigetutorias";
 
             return $this->connect();
         }

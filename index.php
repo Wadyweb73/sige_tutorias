@@ -83,7 +83,7 @@
         $docenteController = new DocenteController();
         $docenteController->visualizarDocente($id);
     });
-
+    
    
     $router->get('/sige_tutorias/docentes', function() {
         $docenteController = new DocenteController();
