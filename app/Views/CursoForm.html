@@ -37,21 +37,21 @@
                 <h1>Cadastrar Curso</h1>
             </div>
 
-            <form action="#" method="post" class="main-content">
+            <form action="/sige_tutorias/curso/registar" method="post" class="main-content">
                 <div class="field-components-container">
                     <span class="field_title">Nome do Curso:</span>
-                    <input class="" name="nome_facul" type="text" required>
+                    <input class="" name="nome" type="text" required>
                 </div>
 
                 <div class="field-components-container">
-                    <select name="faculdade" id="">
+                    <select name="id_faculdade" id="">
                         <option value="">Escolher Faculdade</option>
-                        <option value="">Faculdade de Ciências Naturais e Matemática</option>
-                        <option value="">Faculdade de Engenharias e Tecnologias</option>
+                        <option value="1">Faculdade de Engenharias e Tecnologias</option>
+                        <option value="2">Faculdade de Ciências Naturais e Matemática</option>
                     </select>
                 </div>
 
-                <div class="field-components-container">
+                <!-- <div class="field-components-container"> -->
                     <span class="field_title">Descrição:</span>
                     <textarea name="descricao_curso" id=""></textarea>
                 </div>
