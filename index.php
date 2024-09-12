@@ -116,7 +116,7 @@
         $curso = new Curso();
         $cursoController = new CursoController();
 
-        $curso->set_idFaculdade($_POST['id_faculdade']);
+        $curso->set_idFaculdade($_POST['id_curso']);
         $curso->set_nomeCurso($_POST['nome']);
         $cursoController->registarCurso($curso);
     });
