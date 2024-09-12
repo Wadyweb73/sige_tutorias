@@ -14,6 +14,8 @@ html, body {
 body {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
 .sidebar {
     display: flex;
@@ -53,6 +55,7 @@ li {
     flex-direction: column;
     height: 100%;
 }
+
 header {
     display: flex;
     justify-content: space-between;
@@ -74,17 +77,19 @@ header {
     background: #fff;
     border-radius: 50%;
 }
+
 main {
-    flex-grow: 1; /* Expande o conteúdo principal */
+    flex-grow: 1; 
     padding: 0.5em;
     height: 100%;
 }
 .main-title-container {
     background: #B6D6E9;
     color: #0078C1;
-    padding: 0.5em;
+    padding: 0.2em;
     border-radius: 0.4em;
-}.main-content {
+}
+.main-content {
     background-color: #E4E3E3;
     margin-top: 0.5em;
     border-radius: 0.4em;
@@ -93,28 +98,49 @@ main {
 
     display: flex;
     flex-direction: column;
-    padding: 4em 2em;
+    padding: 2em 2em;
     row-gap: 1.2em;
-}.field-components-container {
+}
+.field-components-container {
     display: flex;
     flex-direction: column;
     row-gap: 0.6em;
-}input, textarea {
+}
+input, textarea {
     padding: 1em;
     border: none;
     border-radius: 0.3em;
-}textarea {
-    height: 10em;
+}
+textarea {
+    height: 7em;
     width: 90%;
     max-width: 100%;
     max-height: 10em;
     min-width: 100%;
     resize: none;
-
-}.submit-button {
+}
+.submit-button {
     background-color: #0078C1;
     padding: 1em 2em;
     border: none;
     border-radius: 0.4em;
     color: #B6D6E9;
+}
+select, input[type="time"], input[type="date"] {
+    padding: 10px;
+    border: 2px solid #0078C1;
+    border-radius: 8px;
+    background-color: #B6D6E9;
+    color: #0078C1;
+    font-size: 16px;
+}
+.date-time-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+.date-time-component {
+    display: flex;
+    flex-direction: column;
+    row-gap: 7px;
 }
