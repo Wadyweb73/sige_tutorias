@@ -18,6 +18,9 @@
     include "app/Models/Curso.php";
     include "app/Controllers/CursoController.php";
 
+    include "app/Models/Disciplina.php";
+    include "app/Controllers/DisciplinaController.php";
+
     // include "app/Models/Tutoria.php";
     // include "app/Controllers/TutoriaController.php";
 
@@ -190,6 +193,39 @@
     $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
         $tutoriaController = new TutoriaController();
         $tutoriaController->apagarTutoria($id);
+    });
+
+
+    //  disciplina
+    $router->post('/sige_tutorias/disciplina/registar', function() {
+        $disciplina = new Disciplina();
+        $disciplinaController = new DisciplinaController();
+        
+        $disciplina->set_nomeDisciplina($_POST['nome_disciplina']);
+        $disciplina->set_idCurso($_POST['id_curso']);
+        $disciplinaController->registarDisciplina($disciplina);
+    
+        echo "Disciplina registrada com sucesso";
+    });
+    
+    $router->get('/sige_tutorias/disciplina/{id}', function($id) {
+        $disciplinaController = new DisciplinaController();
+        $disciplinaController->visualizarDisciplina($id);
+    });
+    
+    $router->get('/sige_tutorias/disciplinas', function() {
+        $disciplinaController = new DisciplinaController();
+        $disciplinaController->listarDisciplinas();
+    });
+    
+    $router->post('/sige_tutorias/disciplina/{id}/actualizar', function($id) {
+        $disciplinaController = new DisciplinaController();
+        $disciplinaController->actualizarDisciplina($id, $_POST['nome_disciplina'], $_POST['id_curso']);
+    });
+    
+    $router->delete('/sige_tutorias/disciplina/{id}/apagar', function($id) {
+        $disciplinaController = new DisciplinaController();
+        $disciplinaController->apagarDisciplina($id);
     });
 
     // --------------- Rota que nao sei qual e a ideia -------------//

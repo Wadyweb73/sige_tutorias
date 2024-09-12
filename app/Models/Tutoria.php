@@ -81,7 +81,7 @@
             $conn = new Connect();
             $connection = $conn->connect();
     
-            $sqlRegistar = "INSERT INTO `tutoria` (`id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `data_realizacao`, `descricao`) VALUES ('$id_disciplina', '$id_docente', '$hora_inicio', '$hora_termino','$data_registo', '$data_realizacao', '$descricao')";
+            $sqlRegistar = "INSERT INTO `tutoria1` (`id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `data_realizacao`, `descricao`) VALUES ('$id_disciplina', '$id_docente', '$hora_inicio', '$hora_termino','$data_registo', '$data_realizacao', '$descricao')";
 
             if(mysqli_query($connection,$sqlRegistar)){
                 echo 'TUtoria Registada com Sucesso...';

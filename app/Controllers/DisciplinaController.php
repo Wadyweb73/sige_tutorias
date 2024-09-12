@@ -37,10 +37,6 @@ public function apagarDisciplina($id) {
     $disciplina->apagarDisciplina($id);
 }
 
-
 }
-
-
-
 
 ?>

@@ -43,17 +43,4 @@ class DocenteController{
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

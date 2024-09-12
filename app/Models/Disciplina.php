@@ -42,7 +42,7 @@
             $idDocente = $this->get_idDocente();
             $idCurso = $this->get_idCurso();
 
-            $sqlRegistar = "INSERT INTO `disciplina` (`id_curso`, `nome_disciplina`) VALUES ('$idCurso', '$nomeDisciplina')";
+            $sqlRegistar = "INSERT INTO `disciplina` (`id_curso`, `nome_disiplina`) VALUES ('$idCurso', '$nomeDisciplina')";
 
             if (mysqli_query($connection, $sqlRegistar)) {
                 echo "Disciplina registada com sucesso!";
