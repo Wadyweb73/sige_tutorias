@@ -22,9 +22,9 @@ class Router {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];
 
-        // Testando se pega a url
-        echo "Path: " . $path . "<br>";
-        echo "Method: " . $method . "<br>";
+        // // Testando se pega a url
+        // echo "Path: " . $path . "<br>";
+        // echo "Method: " . $method . "<br>";
 
         $matched = false;
 

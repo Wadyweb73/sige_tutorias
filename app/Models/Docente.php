@@ -54,13 +54,12 @@
             $sqlRegistar = "INSERT INTO `docente` (`id_docente`, `id_faculdade`, `id_curso`, `id_disciplina`, `nome_docente`) 
             VALUES ('$idDocente', '$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
 
-            mysqli_query($connection, $sqlRegistar);
-            //     echo "Docente registada com sucesso!";
-            // } else {
-            //     echo "Erro ao registrar o Docente: " . mysqli_error($connection);
-            // }
+            if (mysqli_query($connection, $sqlRegistar)) {
+                echo "Docente registada com sucesso!";
+            } else {
+                echo "Erro ao registrar o Docente: " . mysqli_error($connection);
+            }
             mysqli_close($connection);
-
         }
 
 
