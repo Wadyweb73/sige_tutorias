@@ -156,12 +156,12 @@
 
         $tutoriaController = new TutoriaController();
         
-        $tutoriaController->registarTutoria( $_POST['id_disciplina'],
+        $tutoriaController->registarTutoria( $_POST['id_disciplina'] || 0,
                                             $_POST['id_docente'],
                                             $_POST['hora_inicio'],
                                             $_POST['hora_termino'],
                                             $_POST['data_registo'],
-                                            $_POST['data_realizacao'],
+                                            "2024-09-03",
                                             $_POST['descricao']);
     });
     
@@ -184,7 +184,7 @@
             $_POST['id_docente'],
             $_POST['hora_inicio'],
             $_POST['hora_termino'],
-            $_POST['data_registo'],
+            "2024-09-03",
             $_POST['data_realizacao'],
             $_POST['descricao']
         );
