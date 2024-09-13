@@ -1,4 +1,4 @@
-export async function listarTutorias() {
+export async function listarCursos() {
     const response = await fetch('/sige_tutorias/cursos', {
         method: 'GET'
     });
@@ -11,7 +11,7 @@ export async function listarTutorias() {
 }
 
 async function updatePageContent() {
-    const response    = await listarTutorias();
+    const response    = await listarCursos();
     var table_content = "";
     
     response.forEach((curso) => {
