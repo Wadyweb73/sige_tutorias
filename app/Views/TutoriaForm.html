@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../public/css/formTutoria.css">
+    <script src="../../public/js/TutoriaForm.js"></script>
     <title>Formulario | Tutor</title>
 </head>
 <body>
@@ -37,17 +38,14 @@
                 <h1>Cadastrar Tutoria</h1>
             </div>
 
-            <form action="#" method="post" class="main-content">
+            <form action="/sige_tutorias/tutoria/registar" method="post" class="main-content">
                 <div class="field-components-container">
-                    <span class="field_title">Nome do Tutor:</span>
-                    <input class="" name="nome_facul" type="text" required>
+                    <span class="field_title">Id do Tutor:</span>
+                    <input class="" name="id_docente" type="text" required>
                 </div>
                 <div class="field-components-container">
-                    <select name="curso" id="">
-                        <option value="">Seleccionar Curso</option>
-                        <option value="">Licenciatura em Ensino de Matemática</option>
-                        <option value="">Licenciatura em Informatica</option>
-                        <option value="">Engenharia Civil</option>
+                    <select class="js-select-curso " name="curso" id="">
+                        <!-- Conteudo gerado em TutoriaForm.js -->
                     </select>
                 </div>
                 <div class="field-components-container">
@@ -62,20 +60,20 @@
                 <div class="field-components-container date-time-container">
                     <div class="data-realizacao-container date-time-component">
                         <span>Data de realização</span>
-                        <input type="date" class="data-realizacao-input">
+                        <input type="date" name="data_realizacao" class="data-realizacao-input">
                     </div>
                     <div class="hora-inicio-container date-time-component">
                         <span>Hora de início</span>
-                        <input class="hora-inicio-input" type="time">
+                        <input name="hora_inicio" class="hora-inicio-input" type="time">
                     </div>
                     <div class="hora-fim-container-input date-time-component">
                         <span>Hora de fim</span>
-                        <input class="hora-fim" type="time">
+                        <input name="hora_termino" class="hora-fim" type="time">
                     </div>
                 </div>
                 <div class="field-components-container">
                     <span class="field_title">Descrição:</span>
-                    <textarea name="descricao_curso" id=""></textarea>
+                    <textarea name="descricao" id=""></textarea>
                 </div>
                 <button class="submit-button" type="submit">Cadastrar</button>
             </form>
