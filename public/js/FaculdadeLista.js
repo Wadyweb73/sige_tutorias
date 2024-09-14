@@ -1,37 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-    fetch('/sige_tutorias/faculdades', {
+export async function listarFaculdades() {
+    const response = await fetch('/sige_tutorias/faculdades', {
         method: 'GET'
     })
-    .then((response) => {
-        if(!response.ok) {
-            throw new Error('Erro na requisição: ' + response.status);
-        }
 
-        return response.json();
-    })
-    .then((response) => {
-            var table_content = "";
+    if(!response.ok) {
+        throw new Error("There was an error trying to fetch Lista de Faculdades");
+    }
+    
+    return response.json();
+}
 
-            response.forEach((faculdade, index) => {
-                console.log(faculdade);
-                const html = `
-                    <tr>
-                    <td>${faculdade.id_faculdade}</td>
-                        <td>${faculdade.nome_facul}</td>
-                        <td>${faculdade.endereco}</td>
-                    </tr>
-                `;
+async function updatePageContent() {
+    const response = await listarFaculdades();
+    var table_content = "";
 
-                table_content += html;
-            });
+    response.forEach((faculdade, index) => {
+        const html = `
+            <tr>
+            <td>${faculdade.id_faculdade}</td>
+                <td>${faculdade.nome_facul}</td>
+                <td>${faculdade.endereco}</td>
+            </tr>
+        `;
 
-            document.querySelector('.js-table-body')
-                .innerHTML = `${table_content}`;
-    })
-    .catch((error) => {
-        console.error(error);
-    })
+        table_content += html;
+    });
+
+    document.querySelector('.js-table-body')
+        .innerHTML = `${table_content}`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    updatePageContent();
     
 })
 
