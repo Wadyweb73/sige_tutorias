@@ -1,3 +1,5 @@
+import { getDisciplinaById } from "./DisciplinaLista.js";
+
 export async function listarTutores() {
     const response = await fetch('/sige_tutorias/docentes', {
         method: 'GET'
@@ -27,25 +29,24 @@ async function updatePageContent() {
     const response    = await listarTutores();
     var table_content = "";
 
-    response.forEach((tutor) => {
+    for (const  tutor of response) {
+        const res = await getDisciplinaById(tutor.id_disciplina);
+
         const html = `
             <tr>
                 <td>${tutor.id_docente}</td>
                 <td>${tutor.nome_docente}</td>    
                 <td>${tutor.id_faculdade}</td>
-                <td>${tutor.id_disciplina}</td>
+                <td>${res.nome_disciplina}</td>
             </tr>
         `;
 
         table_content += html;
-    });
+    };
 
     document.querySelector('.js-table-body')
         .innerHTML = `${table_content}`;
 }
-// async function run() {
-    
-// }
 
 document.addEventListener('DOMContentLoaded', () => {
 

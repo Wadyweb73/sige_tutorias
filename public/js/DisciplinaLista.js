@@ -29,9 +29,9 @@ async function updatePageContent() {
     response.forEach((disciplina) => {
         const html = `
             <tr>
-                <th>${disciplina.id_disciplina}</th>
-                <th>${disciplina.nome_disciplina}</th>
-                <th>${disciplina.id_curso}</th>
+                <td>${disciplina.id_disciplina}</td>
+                <td>${disciplina.nome_disciplina}</td>
+                <td>${disciplina.id_curso}</td>
             </tr>
         `;
 
