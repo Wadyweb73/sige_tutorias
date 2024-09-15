@@ -1,4 +1,5 @@
 import { getDisciplinaById } from "./DisciplinaLista.js";
+import { getFaculdadeById } from "./FaculdadeLista.js";
 
 export async function listarTutores() {
     const response = await fetch('/sige_tutorias/docentes', {
@@ -30,14 +31,15 @@ async function updatePageContent() {
     var table_content = "";
 
     for (const  tutor of response) {
-        const res = await getDisciplinaById(tutor.id_disciplina);
+        const disciplina_res = await getDisciplinaById(tutor.id_disciplina);
+        const faculdade_res  = await getFaculdadeById(tutor.id_faculdade);
 
         const html = `
             <tr>
                 <td>${tutor.id_docente}</td>
                 <td>${tutor.nome_docente}</td>    
-                <td>${tutor.id_faculdade}</td>
-                <td>${res.nome_disciplina}</td>
+                <td>${faculdade_res.nome_facul}</td>
+                <td>${disciplina_res.nome_disciplina}</td>
             </tr>
         `;
 

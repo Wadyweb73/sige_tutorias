@@ -50,7 +50,7 @@
             $conn = new Connect();
             $connection = $conn->connect();
     
-            $sqlVisualizar = "SELECT * FROM `faculdade` WHERE `id_facul` = ?";
+            $sqlVisualizar = "SELECT * FROM `faculdade` WHERE `id_faculdade` = ?";
             $stmt = $connection->prepare($sqlVisualizar);
             $stmt->bind_param("i", $id);
     
