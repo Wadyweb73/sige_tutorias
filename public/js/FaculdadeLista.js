@@ -38,8 +38,10 @@ async function updatePageContent() {
         table_content += html;
     });
 
-    document.querySelector('.js-table-body')
+    if (document.querySelector(`.js-table-body[data-context="faculdade"]`)) {
+        document.querySelector(`.js-table-body[data-context="faculdade"]`)
         .innerHTML = `${table_content}`;
+       }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

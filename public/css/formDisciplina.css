@@ -129,7 +129,7 @@ select {
     justify-content: space-between;
     column-gap: 0.5em;
 }
-.choose-docente-input {
+.docente-name-input {
     flex-basis: 100%;
 }
 .choose-docente-button {
