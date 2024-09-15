@@ -53,13 +53,13 @@
         }
 
 
-        public function visualizarDisciplina(){
+        public function visualizarDisciplina($id){
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlVisualizar = "SELECT * FROM 'disciplina' WHERE `id_disciplina` = ?";
+            $sqlVisualizar = "SELECT * FROM `disciplina` WHERE id_disciplina = ?";
             $stmt = $connection->prepare($sqlVisualizar);
-            $stmt->bind_param("under", $id);
+            $stmt->bind_param("i", $id);
 
             if ($stmt->execute()) {
                 $resultado = $stmt->get_result();

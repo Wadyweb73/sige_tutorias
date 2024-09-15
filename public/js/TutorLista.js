@@ -10,6 +10,19 @@ export async function listarTutores() {
     return await response.json();
 }
 
+async function getTutorById(id) {
+
+    const response = await fetch(`/sige_tutorias/docente/${id}`, {
+        method: 'GET'
+    });
+    
+    if (!response.ok) {
+        throw new Error('There was an error trying to get tutor data!!');
+    }
+
+    return await response.json(); 
+}
+
 async function updatePageContent() {
     const response    = await listarTutores();
     var table_content = "";
@@ -30,6 +43,9 @@ async function updatePageContent() {
     document.querySelector('.js-table-body')
         .innerHTML = `${table_content}`;
 }
+// async function run() {
+    
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
 

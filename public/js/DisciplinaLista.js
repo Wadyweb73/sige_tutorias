@@ -10,12 +10,22 @@ export async function listarDisciplinas() {
     return await response.json();
 }
 
+export async function getDisciplinaById(id) {
+    const response = await fetch(`/sige_tutorias/disciplina/${id}`, {
+        method: 'GET'
+    });
+
+    if (!response.ok) {
+        throw new Error('There was an error trying to fetch disciplina');
+    }
+
+    return await response.json();
+}
+
 async function updatePageContent() {
     const response = await listarDisciplinas();
     var content = "";
 
-    console.log(response);
-    
     response.forEach((disciplina) => {
         const html = `
             <tr>
