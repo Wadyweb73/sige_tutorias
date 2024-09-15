@@ -1,3 +1,5 @@
+import { getCursoById } from "./CursoLista.js";
+
 export async function listarDisciplinas() {
     const response = await fetch('/sige_tutorias/disciplinas', {
         method: 'GET'
@@ -26,17 +28,19 @@ async function updatePageContent() {
     const response = await listarDisciplinas();
     var content = "";
 
-    response.forEach((disciplina) => {
+    for (const disciplina of response) {
+        const curso_res = await getCursoById(disciplina.id_curso);
+        
         const html = `
             <tr>
                 <td>${disciplina.id_disciplina}</td>
                 <td>${disciplina.nome_disciplina}</td>
-                <td>${disciplina.id_curso}</td>
+                <td>${curso_res.nome_curso}</td>
             </tr>
         `;
 
         content += html;
-    })
+    }
 
     document.querySelector('.js-table-body')
         .innerHTML = content;
