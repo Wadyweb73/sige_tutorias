@@ -1,4 +1,5 @@
 import { getDisciplinaById } from "./DisciplinaLista.js";
+import { applyEvents } from "./CursoLista.js";
 import { getFaculdadeById } from "./FaculdadeLista.js";
 
 export async function listarTutores() {
@@ -13,7 +14,7 @@ export async function listarTutores() {
     return await response.json();
 }
 
-async function getTutorById(id) {
+export async function getTutorById(id) {
 
     const response = await fetch(`/sige_tutorias/docente/${id}`, {
         method: 'GET'
@@ -36,10 +37,13 @@ async function updatePageContent() {
 
         const html = `
             <tr>
-                <td>${tutor.id_docente}</td>
+                <td class="mini-column"><input class="single-checkbox" type="checkbox" name="id-curso" data-curso-id="${tutor.id_docente}"></td>
                 <td>${tutor.nome_docente}</td>    
                 <td>${faculdade_res.nome_facul}</td>
                 <td>${disciplina_res.nome_disciplina}</td>
+                <td class="actions mini-column">
+                    <i class="fas fa-trash-alt delete-icon"></i>
+                </td>
             </tr>
         `;
 
@@ -48,11 +52,14 @@ async function updatePageContent() {
 
     document.querySelector('.js-table-body')
         .innerHTML = `${table_content}`;
+
+    applyEvents();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    updatePageContent();
+    if (window.location.pathname === "/sige_tutorias/app/Views/TutorLista.html")
+        updatePageContent();
     
 })
 
