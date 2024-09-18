@@ -1,10 +1,8 @@
 <?php
-// rafa
     require "app/config/Router.php";
 
     include "app/Models/User.php";
     include "app/Controllers/UserController.php";
- 
 
     include "app/Models/Tutoria.php";
     include "app/Controllers/TutoriaController.php";
@@ -21,17 +19,12 @@
     include "app/Models/Disciplina.php";
     include "app/Controllers/DisciplinaController.php";
 
-    // include "app/Models/Tutoria.php";
-    // include "app/Controllers/TutoriaController.php";
-
-    //include "app/Views/fragments/header.php";
 
     $router = new Router();
     
     $router->get('/sige_tutorias/teste', function() {
         echo "Rota de teste funcionando!";
     });
-
 
     /*----------------- FACULDADE ----------------------*/
     $router->post('/sige_tutorias/faculdade/registar', function() {
@@ -44,7 +37,6 @@
 
         //echo "rota para registar funcionando";
     });
-
 
     $router->get('/sige_tutorias/faculdade/{id}', function($id) {
         $faculdadeController = new FaculdadeController();
@@ -80,6 +72,8 @@
         $docente->set_nome($_POST['nome']);
         
         $docenteController->registarDocente($docente);
+
+        header("Location: ../app/Views/TutorLista.html");
     });
 
     $router->get('/sige_tutorias/docente/{id}', function($id) {
@@ -232,6 +226,9 @@
     $router->get('/', function() {
         include "public/index.php";
     });
+    $router->get('/sige_tutorias/', function() {
+        include('app/Views/login.html');
+    });
     $router->get('/home', function() {
         include "app/Views/index.php";
     });
@@ -262,3 +259,4 @@
    
     $router->run();
 
+?>
