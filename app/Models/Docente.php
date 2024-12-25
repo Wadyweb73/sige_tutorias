@@ -1,4 +1,8 @@
 <?php
+
+
+require_once __DIR__ . '/../Config/Connect.php';
+
     Class Docente{
         private $id_docente;
         private $id_faculdade;
@@ -42,27 +46,27 @@
 
         //DB
 
-        public function registarDocente(){
-            $conn = new Connect();
-            $connection = $conn->connect();
-            $idDocente = $this->get_idDocente();
-            $nome = $this->get_nome();
-            $idFaculdade = $this->get_idFaculdade();
-            $idCurso = $this->get_idCurso();
-            $idDisciplina = $this->get_idDisciplina();
-
-            $sqlRegistar = "INSERT INTO `docente` (`id_docente`, `id_faculdade`, `id_curso`, `id_disciplina`, `nome_docente`) 
-            VALUES ('$idDocente', '$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
-
-            if (mysqli_query($connection, $sqlRegistar)) {
-                echo "Docente registada com sucesso!";
-            } else {
-                echo "Erro ao registrar o Docente: " . mysqli_error($connection);
+        
+            public function registarDocente($nome_docente, $id_faculdade, $id_curso, $id_disciplina) {
+                $conn = new Connect();
+                $connection = $conn->connect();
+                try {
+                    $query = "INSERT INTO docente (nome_docente, id_faculdade, id_curso, id_disciplina) VALUES (?, ?, ?, ?)";
+                    $stmt = $connection->prepare($query);
+                    
+                    $stmt->bind_param("siii", $nome_docente, $id_faculdade, $id_curso, $id_disciplina);
+                    
+                    if ($stmt->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (mysqli_sql_exception $e) {
+                    throw new Exception("There was an error: " . $e->getMessage());
+                }
             }
-            mysqli_close($connection);
-        }
-
-
+        
+        
 
         public function visualizarDocente($id){
             $conn = new Connect();
@@ -96,7 +100,15 @@
             $conn = new Connect();
             $connection = $conn->connect();
         
-            $sqlListar = "SELECT * FROM `docente`";
+            // $sqlListar = "SELECT * FROM `docente`";
+            // $resultado = $connection->query($sqlListar);
+
+            $sqlListar = "SELECT d.*, f.nome_facul, c.nome_curso, dis.nome_disciplina 
+            FROM docente d 
+            JOIN faculdade f ON d.id_faculdade = f.id_faculdade 
+            JOIN curso c ON d.id_curso = c.id_curso 
+            JOIN disciplina dis ON d.id_disciplina = dis.id_disciplina";
+
             $resultado = $connection->query($sqlListar);
         
             $docente = [];
@@ -111,41 +123,40 @@
 
 
 
-        public function actualizarDocente(){
-           $conn = new Connect();
-            $connection = $conn->connect();
-
-            $sqlAtualizar = "UPDATE `docente` SET  'id_faculdade' = ?,'id_curso'=? ,'id_disciplina'=?,'nome_docente'=? WHERE 'id_docente' = ?";
-            $stmt = $connection->prepare($sqlAtualizar);
-            $stmt->bind_param("iiisi", $this->id_faculdade,$this->id_curso,$this->id_disciplina,$this->nome, $id);
-
-            if ($stmt->execute()) {
-                echo "Docente actualizado!";
-            } else {
-                echo "Erro ao actualizar o Docente: " . $connection->error;
-            }
-
-            mysqli_close($connection);   
-            
-
-        }
-        
-
-        public function apagarDocente(){
+        public function buscarPorId($id) {
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlApagar = "DELETE FROM `docente1` WHERE 'id_docente' = ?";
-            $stmt = $connection->prepare($sqlApagar);
+            $query = "SELECT * FROM docente WHERE id_docente = ?";
+            $stmt = $connection->prepare($query);
             $stmt->bind_param("i", $id);
-        
-            if ($stmt->execute()) {
-                echo "Docente apagado com sucesso!";
-            } else {
-                echo "Erro ao apagar o Docente: " . $connection->error;
-            }
-        
-            mysqli_close($connection); 
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_assoc();
         }
+        
+        public function atualizarDocente($id, $nome, $id_faculdade, $id_curso, $id_disciplina) {
+            $conn = new Connect();
+            $connection = $conn->connect();
+
+            $query = "UPDATE docente SET nome_docente = ?, id_faculdade = ?, id_curso = ?, id_disciplina = ? WHERE id_docente = ?";
+            $stmt = $connection->prepare($query);
+            $stmt->bind_param("siiii", $nome, $id_faculdade, $id_curso, $id_disciplina, $id);
+            return $stmt->execute();
+        }
+        
+        
+
+        public function deletarDocente($id_docente) {
+
+            $conn = new Connect();
+            $connection = $conn->connect();
+
+            $query = "DELETE FROM docente WHERE id_docente = ?";
+            $stmt = $connection->prepare($query);
+            $stmt->bind_param("i", $id_docente);
+            return $stmt->execute();
+        }
+        
     }
 ?>

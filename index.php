@@ -70,46 +70,49 @@
 
 
     // Docente
-    $router->post('/sige_tutorias/docente/registar', function() {
-        $docente = new Docente();
-        $docenteController = new DocenteController();
+  // Rota para registrar um novo tutor
+    // $router->post('/sige_tutorias/docente/registar', function() {
+    //     $docente = new Docente();
+    //     $docenteController = new DocenteController();
 
-        $docente->set_idFaculdade($_POST['id_faculdade']);
-        $docente->set_idCurso($_POST['id_curso']);
-        $docente->set_idDisciplina($_POST['id_disciplina']);
-        $docente->set_nome($_POST['nome']);
-        
-        $docenteController->registarDocente($docente);
-    });
+    //     // Captura os dados do POST
+    //     $docente->set_idFaculdade($_POST['id_faculdade']);
+    //     $docente->set_idCurso($_POST['id_curso']);
+    //     $docente->set_idDisciplina($_POST['id_disciplina']);
+    //     $docente->set_nome($_POST['nome']);
 
-    $router->get('/sige_tutorias/docente/{id}', function($id) {
-        $docenteController = new DocenteController();
-        $docenteController->visualizarDocente($id);
-    });
+    //     // Chama o método para registrar o docente
+    //     $docenteController->registarDocente($docente);
+    // });
+
+    // $router->get('/sige_tutorias/docente/{id}', function($id) {
+    //     $docenteController = new DocenteController();
+    //     $docenteController->visualizarDocente($id);
+    // });
 
    
-    $router->get('/sige_tutorias/docentes', function() {
-        $docenteController = new DocenteController();
-        $docenteController->listarDocentes();
-    });
+    // $router->get('/sige_tutorias/docentes', function() {
+    //     $docenteController = new DocenteController();
+    //     $docenteController->listarDocentes();
+    // });
 
 
-    $router->post('/sige_tutorias/docente/{id}/actualizar', function($id) {
-        $docenteController = new DocenteController();
-        $docenteController->actualizarDocente(
-            $id,
-            $_POST['id_faculdade'],
-            $_POST['id_curso'],
-            $_POST['id_disciplina'],
-            $_POST['nome']
-        );
-    });
+    // $router->post('/sige_tutorias/docente/{id}/actualizar', function($id) {
+    //     $docenteController = new DocenteController();
+    //     $docenteController->actualizarDocente(
+    //         $id,
+    //         $_POST['id_faculdade'],
+    //         $_POST['id_curso'],
+    //         $_POST['id_disciplina'],
+    //         $_POST['nome']
+    //     );
+    // });
 
   
-    $router->delete('/sige_tutorias/docente/{id}/apagar', function($id) {
-        $docenteController = new DocenteController();
-        $docenteController->apagarDocente($id);
-    });
+    // $router->delete('/sige_tutorias/docente/{id}/apagar', function($id) {
+    //     $docenteController = new DocenteController();
+    //     $docenteController->apagarDocente($id);
+    // });
 
     
 
@@ -152,48 +155,48 @@
     });
 
     // tutoria
-    $router->post('/sige_tutorias/tutoria/registar', function() {
+    // $router->post('/sige_tutorias/tutoria/registar', function() {
 
-        $tutoriaController = new TutoriaController();
+    //     $tutoriaController = new TutoriaController();
         
-        $tutoriaController->registarTutoria( $_POST['id_disciplina'] || 0,
-                                            $_POST['id_docente'],
-                                            $_POST['hora_inicio'],
-                                            $_POST['hora_termino'],
-                                            $_POST['data_registo'],
-                                            "2024-09-03",
-                                            $_POST['descricao']);
-    });
+    //     $tutoriaController->registarTutoria( $_POST['id_disciplina'] || 0,
+    //                                         $_POST['id_docente'],
+    //                                         $_POST['hora_inicio'],
+    //                                         $_POST['hora_termino'],
+    //                                         $_POST['data_registo'],
+    //                                         "2024-09-03",
+    //                                         $_POST['descricao']);
+    // });
     
-    $router->get('/sige_tutorias/tutorias', function() {
-        $tutoriaController = new TutoriaController();
-        $tutoriaController->listarTutorias();
-    });
+    // $router->get('/sige_tutorias/tutorias', function() {
+    //     $tutoriaController = new TutoriaController();
+    //     $tutoriaController->listarTutorias();
+    // });
     
-    $router->get('/sige_tutorias/tutoria/{id}', function($id) {
-        $tutoriaController = new TutoriaController();
-        $tutoriaController->visualizarTutoria($id);
-    });
+    // $router->get('/sige_tutorias/tutoria/{id}', function($id) {
+    //     $tutoriaController = new TutoriaController();
+    //     $tutoriaController->visualizarTutoria($id);
+    // });
     
-    $router->post('/sige_tutorias/tutoria/{id}/actualizar', function($id) {
+    // $router->post('/sige_tutorias/tutoria/{id}/actualizar', function($id) {
 
-        $tutoriaController = new TutoriaController();
-        $tutoriaController->actualizarTutoria(
-            $id,
-            $_POST['id_disciplina'],
-            $_POST['id_docente'],
-            $_POST['hora_inicio'],
-            $_POST['hora_termino'],
-            "2024-09-03",
-            $_POST['data_realizacao'],
-            $_POST['descricao']
-        );
-    });
+    //     $tutoriaController = new TutoriaController();
+    //     $tutoriaController->actualizarTutoria(
+    //         $id,
+    //         $_POST['id_disciplina'],
+    //         $_POST['id_docente'],
+    //         $_POST['hora_inicio'],
+    //         $_POST['hora_termino'],
+    //         "2024-09-03",
+    //         $_POST['data_realizacao'],
+    //         $_POST['descricao']
+    //     );
+    // });
     
-    $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
-        $tutoriaController = new TutoriaController();
-        $tutoriaController->apagarTutoria($id);
-    });
+    // $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
+    //     $tutoriaController = new TutoriaController();
+    //     $tutoriaController->apagarTutoria($id);
+    // });
 
 
     //  disciplina
@@ -230,6 +233,9 @@
 
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
+        include "public/index.php";
+    });
+     $router->get('/sige_tutorias', function() {
         include "public/index.php";
     });
     $router->get('/home', function() {

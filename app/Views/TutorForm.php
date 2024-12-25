@@ -1,3 +1,14 @@
+<?php
+
+require_once __DIR__.'/../Controllers/DocenteController.php';
+
+
+if(isset($_POST['send'])){
+$cliente = new DocenteController();
+$cliente ->Registar();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +28,8 @@
             <li><a href="./home.html">Home</a></li>
             <li><a href="./FaculdadeLista.html">Faculdades</a></li>
             <li><a href="./CursoLista.html">Cursos</a></li>
-            <li><a href="TutorLista.html">Tutores</a></li>
-            <li><a href="./TutoriaLista.html">Tutorias</a></li>
+            <li><a href="TutorLista.php">Tutores</a></li>
+            <li><a href="./TutoriaLista.php">Tutorias</a></li>
             <li><a href="./DisciplinaLista.html">Disciplinas</a></li>
             <li><a href="#">Testes</a></li>
             <li><a href="#">Relatorios</a></li>
@@ -39,7 +50,7 @@
                 <h1>Cadastrar Tutor</h1>
             </div>
 
-            <form action="/sige_tutorias/docente/registar" method="post" class="main-content">
+            <form  method="post" class="main-content">
                 <div class="field-components-container">
                     <span class="field_title">Nome do Tutor:</span>
                     <input class="" name="nome" type="text" required>
@@ -62,10 +73,11 @@
                     <select name="id_disciplina" id="">
                         <option value="">Escolher Disciplina</option>
                         <option value="1">Lógica de Programação</option>
-                        <option value="4">Estruturas de Dados e Algorítimos</option>
+                        <option value="2">Matemática Discreta</option>
+                        <option value="3">Design Grafico</option>
                     </select>
                 </div>
-                <button class="submit-button" type="submit">Cadastrar</button>
+                <button class="submit-button" type="submit" name="send">Cadastrar</button>
             </form>
         </main>
     </div>

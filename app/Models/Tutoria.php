@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../Config/Connect.php';
 
     class Tutoria{
         private $id_tutoria;
@@ -77,28 +78,44 @@
 
         /// metodos
 
-        public function registarTutoria($id_disciplina, $id_docente, $hora_inicio, $hora_termino,$data_registo, $data_realizacao, $descricao) {
-            $conn = new Connect();
-            $connection = $conn->connect();
-    
-            $sqlRegistar = "INSERT INTO `tutoria1` (`id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `data_realizacao`, `descricao`) VALUES ('$id_disciplina', '$id_docente', '$hora_inicio', '$hora_termino','$data_registo', '$data_realizacao', '$descricao')";
+      
+ 
+    public function registarTutoria($id_disciplina, $id_docente, $hora_inicio, $hora_termino, $data_registo, $data_realizacao, $descricao) {
+        $conn = new Connect();
+        $connection = $conn ->connect();
 
-            if(mysqli_query($connection,$sqlRegistar)){
-                echo 'TUtoria Registada com Sucesso...';
-            }else {
-                echo'ERRO ao Registar a tutoria'. mysqli_error($connection);
-            }
+        $sql = "INSERT INTO tutoria (id_disciplina, id_docente, hora_inicio, hora_termino, data_registo, data_realizacao, descricao) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($sql);
 
+        $stmt->bind_param('iisssss', $id_disciplina, $id_docente, $hora_inicio, $hora_termino, $data_registo, $data_realizacao, $descricao);
 
-            mysqli_close($connection);
+        if($stmt->execute()) {
+            return true;
+        } else {
+            return false;
         }
+    }
 
+
+        
+        
+        
         public function listarTutorias(){
             $conn = new Connect();
             $connection = $conn ->connect();
     
-            $sqlListar = "SELECT * FROM `tutoria`";
-            $resultado = $connection->query($sqlListar);
+            $sqlListar = "
+            SELECT t.*, d.nome_docente, dis.nome_disciplina 
+            FROM tutoria t 
+            JOIN docente d ON t.id_docente = d.id_docente 
+            JOIN disciplina dis ON t.id_disciplina = dis.id_disciplina
+            ";
+        
+            // $sqlListar="SELECT * FROM tutoria";
+
+
+           $resultado = $connection->query($sqlListar);
     
             $tutorias = [];
             if($resultado->num_rows > 0){
@@ -109,6 +126,8 @@
             mysqli_close($connection);
             return $tutorias;
         }
+
+
         public function visualizarTutoria($id_tutoria) {
             $conn = new Connect();
             $connection = $conn->connect();
@@ -132,50 +151,48 @@
             mysqli_close($connection);
 
         }
+
+        
+        public function buscarPorId($id) {
+            $conn = new Connect();
+            $connection = $conn->connect();
+
+            $query = "SELECT * FROM tutoria WHERE id_tutoria = ?";
+            $stmt = $connection->prepare($query);
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_assoc();
+        }
+        
+
+
         public function actualizarTutoria($id_tutoria, $id_disciplina, $id_docente, $hora_inicio, $hora_termino, $data_realizacao, $descricao) {
             $conn = new Connect();
             $connection = $conn->connect();
-    
-            $sqlAtualizar = "UPDATE `tutoria` 
-                             SET `id_disciplina` = ?, `id_docente` = ?, `hora_inicio` = ?, `hora_termino` = ?, `data_realizacao` = ?, `descricao` = ?
-                             WHERE `id_tutoria` = ?";
-            $stmt = $connection->prepare($sqlAtualizar);
-            $stmt->bind_param("iissssi", $id_disciplina, $id_docente, $hora_inicio, $hora_termino, $data_realizacao, $descricao, $id_tutoria);
-    
+
+            $sql = "UPDATE tutoria SET id_disciplina = ?, id_docente = ?, hora_inicio = ?, hora_termino = ?, data_realizacao = ?, descricao = ? WHERE id_tutoria = ?";
+            $stmt = $connection->prepare($sql);
+        
+            $stmt->bind_param('iissssi', $id_disciplina, $id_docente, $hora_inicio, $hora_termino, $data_realizacao, $descricao, $id_tutoria);
+        
             if ($stmt->execute()) {
-                if ($stmt->affected_rows > 0) {
-                    echo "Tutoria atualizada com sucesso.";
-                } else {
-                    echo "Nenhuma alteração foi feita ou Tutoria não encontrada.";
-                }
+                return true;
             } else {
-                echo "Erro ao atualizar a Tutoria: " . $stmt->error;
+                return false;
             }
-            mysqli_close($connection);
-
         }
+        
+        public function deletarTutoria($id_tutoria) {
 
-        public function apagarTutoria($id_tutoria) {
             $conn = new Connect();
             $connection = $conn->connect();
-    
-            $sqlDeletar = "DELETE FROM `tutoria` WHERE `id_tutoria` = ?";
-            $stmt = $connection->prepare($sqlDeletar);
+
+            $query = "DELETE FROM tutoria WHERE id_tutoria = ?";
+            $stmt = $connection->prepare($query);
             $stmt->bind_param("i", $id_tutoria);
-    
-            if ($stmt->execute()) {
-                if ($stmt->affected_rows > 0) {
-                    echo "Tutoria deletada com sucesso.";
-                } else {
-                    echo "Tutoria não encontrada.";
-                }
-            } else {
-                echo "Erro ao deletar a Tutoria: " . $stmt->error;
-            }
-            mysqli_close($connection);
-
+            return $stmt->execute();
         }
-
     }
 
 
