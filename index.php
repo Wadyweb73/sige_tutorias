@@ -2,10 +2,6 @@
 // rafa
     require "app/config/Router.php";
 
-    include "app/Models/User.php";
-    include "app/Controllers/UserController.php";
- 
-
     include "app/Models/Tutoria.php";
     include "app/Controllers/TutoriaController.php";
 
@@ -110,8 +106,6 @@
         $docenteController = new DocenteController();
         $docenteController->apagarDocente($id);
     });
-
-    
 
     // curso
 

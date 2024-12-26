@@ -55,9 +55,9 @@
             VALUES ('$idDocente', '$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
 
             if (mysqli_query($connection, $sqlRegistar)) {
-                echo "Docente registada com sucesso!";
+               return true;
             } else {
-                echo "Erro ao registrar o Docente: " . mysqli_error($connection);
+                return false;
             }
             mysqli_close($connection);
         }
@@ -79,7 +79,7 @@
                    
                     return $docente;
                 } else {
-                    echo "Nenhum Docente foi encontrado.";
+                    
                     return null;
                 }
             } else {
@@ -120,9 +120,9 @@
             $stmt->bind_param("iiisi", $this->id_faculdade,$this->id_curso,$this->id_disciplina,$this->nome, $id);
 
             if ($stmt->execute()) {
-                echo "Docente actualizado!";
+               return true;
             } else {
-                echo "Erro ao actualizar o Docente: " . $connection->error;
+                return false;
             }
 
             mysqli_close($connection);   
@@ -140,9 +140,9 @@
             $stmt->bind_param("i", $id);
         
             if ($stmt->execute()) {
-                echo "Docente apagado com sucesso!";
+                return true;
             } else {
-                echo "Erro ao apagar o Docente: " . $connection->error;
+               return false;
             }
         
             mysqli_close($connection); 
