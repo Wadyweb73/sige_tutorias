@@ -1,12 +1,10 @@
-import { applyEvents } from "./CursoLista.js";
-
 export async function listarFaculdades() {
     const response = await fetch('/sige_tutorias/faculdades', {
         method: 'GET'
     })
 
     if(!response.ok) {
-        throw new Error("There was an error trying to fetch Lista de Faculdades");
+        return false;
     }
     
     return response.json();
@@ -18,42 +16,65 @@ export async function getFaculdadeById(id) {
     });
 
     if (!response.ok) {
-        throw new Error('There was an error trying to fetch Faculdade');
+        return false;
     }
 
     return await response.json();
 }
 
+async function applyEvents() {
+    const deleteButtons = document.querySelectorAll('.js-delete-button');
+
+    for (const button of deleteButtons) {
+        button.addEventListener('click', async () => {
+            const id_faculdade = button.dataset.faculId;
+            const deleteResponse = await fetch(`/sige_tutorias/faculdade/${id_faculdade}/apagar`, {
+                method: 'DELETE'
+            });
+
+            console.log(deleteResponse)
+        });
+    };
+}
+
 async function updatePageContent() {
-    const response = await listarFaculdades();
+    const faculdades = await listarFaculdades();
     var table_content = "";
 
-    response.forEach((faculdade, index) => {
-        const html = `
+    if (faculdades === false || faculdades.length === 0) {
+        table_content = `
             <tr>
-                <td class="mini-column"><input type="checkbox" class="single-checkbox" name="id-curso" data-curso-id="${faculdade.id_faculdade}"></td>
-                <td>${faculdade.nome_facul}</td>
-                <td>${faculdade.endereco}</td>
-                <td class="actions mini-column">
-                    <i class="fas fa-trash-alt delete-icon"></i>
-                </td>
+                <td colspan=10 style="text-align: center; color: red;"><h1>Sem faculdades registadas!</h1></td>
             </tr>
         `;
+    }
+    else {
+        faculdades.forEach((faculdade) => {
+            const html = `
+                <tr>
+                    <td class="mini-column"><input type="checkbox" class="single-checkbox" name="id-curso" data-curso-id="${faculdade.id_faculdade}"></td>
+                    <td>${faculdade.nome_facul}</td>
+                    <td>${faculdade.endereco}</td>
+                    <td class="actions mini-column">
+                        <i class="fas fa-trash-alt delete-icon js-delete-button" data-facul-id=${faculdade.id_faculdade}></i>
+                    </td>
+                </tr>
+            `;
 
-        table_content += html;
-    });
+            table_content += html;
+        });
+    }
 
-    document.querySelector(`.js-table-body`)
-        .innerHTML = `${table_content}`;
+    document.querySelector(`.js-table-body`).innerHTML = `${table_content}`;
 
     applyEvents();
 
     document.querySelector('.add-button').addEventListener('click', () => {
         window.location.href = '../../app/Views/FaculdadeForm.html';
-    })
+    });
     document.querySelector('.edit-button').addEventListener('click', () => {
         window.location.href = '../../app/Views/FaculdadeForm.html';
-    })
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

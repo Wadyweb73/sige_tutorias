@@ -1,26 +1,18 @@
 <?php
+
     require "app/config/Router.php";
 
-    include "app/Models/User.php";
-    include "app/Controllers/UserController.php";
+    include "app/Models/Disciplina.php"; include "app/Controllers/DisciplinaController.php";
+    include "app/Models/Faculdade.php"; include "app/Controllers/FaculdadeController.php";
+    include "app/Models/Tutoria.php";  include "app/Controllers/TutoriaController.php";
+    include "app/Models/Docente.php"; include "app/Controllers/DocenteController.php";
+    include "app/Models/Curso.php"; include "app/Controllers/CursoController.php";
+    include "app/Models/User.php"; include "app/Controllers/UserController.php";
 
-    include "app/Models/Tutoria.php";
-    include "app/Controllers/TutoriaController.php";
-
-    include "app/Models/Faculdade.php";
-    include "app/Controllers/FaculdadeController.php";
-
-    include "app/Models/Docente.php";
-    include "app/Controllers/DocenteController.php";
-
-    include "app/Models/Curso.php";
-    include "app/Controllers/CursoController.php";
-
-    include "app/Models/Disciplina.php";
-    include "app/Controllers/DisciplinaController.php";
-
-
-    $router = new Router();
+    $router   = new Router();
+    $GLOBALS['global'] = [
+        'base_url' => $_SERVER['DOCUMENT_ROOT'].'/sige_tutorias'
+    ];
     
     $router->get('/sige_tutorias/teste', function() {
         echo "Rota de teste funcionando!";
@@ -35,7 +27,7 @@
         $faculdade->set_endereco($_POST['endereco']);
         $faculdadeController->registarFaculdade($faculdade);
 
-        //echo "rota para registar funcionando";
+        header("Location: ../app/Views/FaculdadeLista.html");
     });
 
     $router->get('/sige_tutorias/faculdade/{id}', function($id) {
@@ -59,7 +51,6 @@
         $faculdadeController = new FaculdadeController();
         $faculdadeController->apagarFaculdade($id);
     });
-
 
     // Docente
     $router->post('/sige_tutorias/docente/registar', function() {
@@ -99,12 +90,10 @@
         );
     });
 
-  
     $router->delete('/sige_tutorias/docente/{id}/apagar', function($id) {
         $docenteController = new DocenteController();
         $docenteController->apagarDocente($id);
     });
-
     
 
     // curso
@@ -116,6 +105,8 @@
         $curso->set_idFaculdade($_POST['id_faculdade']);
         $curso->set_nomeCurso($_POST['nome']);
         $cursoController->registarCurso($curso);
+
+        header("Location: ../app/Views/CursoLista.html");
     });
 
     $router->get('/sige_tutorias/cursos', function() {
@@ -147,16 +138,19 @@
 
     // tutoria
     $router->post('/sige_tutorias/tutoria/registar', function() {
-
         $tutoriaController = new TutoriaController();
         
-        $tutoriaController->registarTutoria( $_POST['id_disciplina'] || 0,
-                                            $_POST['id_docente'],
-                                            $_POST['hora_inicio'],
-                                            $_POST['hora_termino'],
-                                            $_POST['data_registo'],
-                                            "2024-09-03",
-                                            $_POST['descricao']);
+        $tutoriaController->registarTutoria( 
+            $_POST['id_disciplina'] || 0,
+            $_POST['id_docente'],
+            $_POST['hora_inicio'],
+            $_POST['hora_termino'],
+            $_POST['data_registo'],
+            "2024-09-03",
+            $_POST['descricao']
+        );
+
+        header("../app/Views/TutoriaLista.html");         
     });
     
     $router->get('/sige_tutorias/tutorias', function() {
@@ -182,13 +176,14 @@
             $_POST['data_realizacao'],
             $_POST['descricao']
         );
+
+        header("../app/Views/TutoriaLista.html");         
     });
     
     $router->delete('/sige_tutorias/tutoria/{id}/apagar', function($id) {
         $tutoriaController = new TutoriaController();
         $tutoriaController->apagarTutoria($id);
     });
-
 
     //  disciplina
     $router->post('/sige_tutorias/disciplina/registar', function() {
@@ -199,22 +194,27 @@
         $disciplina->set_idCurso($_POST['id_curso']);
         $disciplinaController->registarDisciplina($disciplina);
     
-        echo "Disciplina registrada com sucesso";
+        header("../app/Views/DisciplinaLista.html");
     });
     
     $router->get('/sige_tutorias/disciplina/{id}', function($id) {
         $disciplinaController = new DisciplinaController();
+
         $disciplinaController->visualizarDisciplina($id);
     });
     
     $router->get('/sige_tutorias/disciplinas', function() {
         $disciplinaController = new DisciplinaController();
+
         $disciplinaController->listarDisciplinas();
     });
     
     $router->post('/sige_tutorias/disciplina/{id}/actualizar', function($id) {
         $disciplinaController = new DisciplinaController();
+
         $disciplinaController->actualizarDisciplina($id, $_POST['nome_disciplina'], $_POST['id_curso']);
+
+        include("./app/Views/DisciplinaLista.html");
     });
     
     $router->delete('/sige_tutorias/disciplina/{id}/apagar', function($id) {
@@ -222,21 +222,6 @@
         $disciplinaController->apagarDisciplina($id);
     });
 
-    // --------------- Rota que nao sei qual e a ideia -------------//
-    $router->get('/', function() {
-        include "public/index.php";
-    });
-    $router->get('/sige_tutorias/', function() {
-        include('app/Views/login.html');
-    });
-    $router->get('/home', function() {
-        include "app/Views/index.php";
-    });
-    $router->get('/exit', function() {
-        session_destroy();
-    });
-
-    
 
     //Auth
     $router->get('/entrar', function() {
@@ -258,5 +243,28 @@
     });
    
     $router->run();
+
+    // --------------- Rota que nao sei qual e a ideia -------------//
+    $router->get('/sige_tutorias/', function() {
+        include('./app/Views/login.html');
+    });
+
+    $router->get('/sige_tutorias/faculdade/show', function() {
+        header("Location: ../app/Views/FaculdadeLista.html");
+    });
+
+    $router->get("/sige_tutorias/curso/show", function() {
+        header("Location: ../app/Views/CursoLista.html");
+    });
+
+    $router->get('/home', function() {
+        include "app/Views/index.php";
+    });
+
+    $router->get('siget_tutorias/exit', function() {
+        session_destroy();
+    });
+
+    
 
 ?>

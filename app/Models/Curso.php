@@ -37,13 +37,12 @@
            $sqlRegistar = "INSERT INTO `curso` (`nome_curso`,`id_faculdade`) VALUES ('$nomeCurso','$idFaculdade')";
            
             if(mysqli_query($connection,$sqlRegistar)){
-                echo 'Faculdade Registada com Sucesso...';
-            }else {
-                echo'ERRO ao Registar a faculdade:'. mysqli_error($connection);
+                return true;
             }
-
+           
             mysqli_close($connection);
 
+            return false;
         }
 
 
@@ -61,15 +60,11 @@
                     $curso = $resultado->fetch_assoc();
 
                     return $curso;
-                }else {
-                    echo 'Nenhuma Faculdade Encontrada.';
-                    return null;
                 }
-            }else{
-                echo 'Erro ao Buscar o Curso'. $connection->error;
-                return null;
             }
+
             mysqli_close($connection);
+            return false;
         }
 
         public function listarCursos(){

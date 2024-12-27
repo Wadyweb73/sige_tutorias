@@ -46,6 +46,7 @@
         public function setIdTutoria($id_tutoria) {
             $this->id_tutoria = $id_tutoria;
         }
+
         public function setIdDisciplina($id_disciplina) {
             $this->id_disciplina = $id_disciplina;
         }
@@ -53,8 +54,6 @@
         public function setIdDocente($id_docente) {
             $this->id_docente = $id_docente;
         }
-
-
 
         public function setHoraInicio($hora_inicio) {
             $this->hora_inicio = $hora_inicio;
