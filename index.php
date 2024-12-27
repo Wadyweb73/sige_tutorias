@@ -2,10 +2,6 @@
 // rafa
     require "app/config/Router.php";
 
-    include "app/Models/User.php";
-    include "app/Controllers/UserController.php";
- 
-
     include "app/Models/Tutoria.php";
     include "app/Controllers/TutoriaController.php";
 
@@ -32,6 +28,19 @@
         echo "Rota de teste funcionando!";
     });
 
+      //Auth
+      $router->get('/sige_tutorias/entrar', function() {
+        include "app/Views/auth/login.php";
+    });
+ 
+    $router->post('/sige_tutorias/entrar', function() {
+        $docente =new Docente();
+        $docente->setEmail($_POST['email']);
+        $docente->setPassword($_POST['password']);
+
+        $docenteController = new DocenteController();
+        $docenteController->autenticar($docente);        
+    });
 
     /*----------------- FACULDADE ----------------------*/
     $router->post('/sige_tutorias/faculdade/registar', function() {
@@ -228,7 +237,7 @@
         $disciplinaController->apagarDisciplina($id);
     });
 
-    // --------------- Rota que nao sei qual e a ideia -------------//
+
     $router->get('/', function() {
         include "public/index.php";
     });
@@ -239,26 +248,6 @@
         session_destroy();
     });
 
-    
-
-    //Auth
-    $router->get('/entrar', function() {
-        include "app/Views/auth/login.php";
-    });
-    $router->get('/registar', function() {
-        include "app/Views/auth/signin.php";
-    });
-    $router->post('/entrar', function() {
-        $user = new User();
-        $userController = new UserController();
-        $user->set_uEmail($_POST['email']);
-        $user->set_uPasswd($_POST['passwd']);
-        
-        if($userController->login($user->get_uEmail(), $user->get_uPasswd())){
-            header("Location: /home");
-        }
-        
-    });
    
     $router->run();
 
