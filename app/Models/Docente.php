@@ -151,11 +151,11 @@
         }
         
 
-        public function apagarDocente(){
+        public function apagarDocente($id){
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlApagar = "DELETE FROM `docente1` WHERE 'id_docente' = ?";
+            $sqlApagar = "DELETE FROM `docente` WHERE 'id_docente' = ?";
             $stmt = $connection->prepare($sqlApagar);
             $stmt->bind_param("i", $id);
         

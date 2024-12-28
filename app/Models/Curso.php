@@ -85,16 +85,13 @@
         }
 
 
-        public function actualizarCurso(){
+        public function actualizarCurso($id){
             $conn = new Connect();
             $connection =$conn->connect();
 
             $sqlActualizar = "UPDATE `curso` SET `nome_curso`=?,`id_faculdade`=? WHERE `id_curso` = ?";
             $stmt = $connection->prepare($sqlActualizar);
             $stmt->bind_param("sss", $this->nome_curso, $this->id_faculdade, $id);
-
-            print_r($stmt);
-            die();
 
             try {
                 if($stmt->execute()){
@@ -109,22 +106,22 @@
             return false; 
         }
         
-        public function apagarCurso(){
+        public function apagarCurso($id){
             $conn = new Connect();
             $connection = $conn->connect();
             
             
-            $sqlApagar = "DELETE FROM `curso` WHERE `id_facul` = ?";
+            $sqlApagar = "DELETE FROM `curso` WHERE `id_curso` = ?";
             $stmt = $connection->prepare($sqlApagar);
             $stmt->bind_param("i", $id);
 
             if ($stmt->execute()) {
-                echo json_encode(['request_status' => true]);
-                return;
+                
+                return true;
             }
 
             mysqli_close($connection); 
-            echo json_encode(['request_status' => false]);
+          return false;
         }
     }
 ?>

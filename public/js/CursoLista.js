@@ -25,7 +25,7 @@ export async function getCursoById(id) {
 }
 
 export async function deleteCursoById(id) {
-    const response = await fetch(`/sige_tutorias/docente/${id}/apagar`, {
+    const response = await fetch(`/sige_tutorias/curso/${id}/apagar`, {
         method: 'DELETE'
     });
 
