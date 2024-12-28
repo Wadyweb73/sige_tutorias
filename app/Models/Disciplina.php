@@ -68,7 +68,6 @@
                    
                     return $disciplina;
                 } else {
-                    echo "Nenhuma Disciplina encontrada.";
                     return null;
                 }
             } else {
@@ -107,9 +106,9 @@
             $stmt->bind_param("ssi", $this->nome_disciplina, $this->id_curso, $id);
 
             if ($stmt->execute()) {
-                echo "Disciplina actualizada!";
+                return true;
             } else {
-                echo "Erro ao actualizar a Disciplina: " . $connection->error;
+                return false;
             }
 
             mysqli_close($connection);   

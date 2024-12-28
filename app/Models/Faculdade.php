@@ -61,7 +61,7 @@
                    
                     return $faculdade;
                 } else {
-                    echo "Nenhuma faculdade encontrada.";
+                   
                     return null;
                 }
             } else {
@@ -101,9 +101,9 @@
             $stmt->bind_param("ssi", $this->nome_faculdade, $this->endereco, $id);
 
             if ($stmt->execute()) {
-                echo "Faculdade actualizada!";
+                return true;
             } else {
-                echo "Erro ao actualizar a faculdade: " . $connection->error;
+                return false;
             }
 
             mysqli_close($connection);   
@@ -118,9 +118,9 @@
             $stmt->bind_param("i", $id);
         
             if ($stmt->execute()) {
-                echo "Faculdade apagada com sucesso!";
+                return true;
             } else {
-                echo "Erro ao apagar a faculdade: " . $connection->error;
+                return false;
             }
         
             mysqli_close($connection); 

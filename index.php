@@ -19,6 +19,14 @@
     });
 
 
+    $router->post('/sige_tutorias/entrar', function() {
+        $docente =new Docente();
+        $docente->setEmail($_POST['email']);
+        $docente->setPassword($_POST['password']);
+        $docenteController = new DocenteController();
+        $docenteController->autenticar($docente);        
+    });
+
     /*----------------- FACULDADE ----------------------*/
     $router->post('/sige_tutorias/faculdade/registar', function() {
         $faculdade = new Faculdade();
@@ -47,7 +55,6 @@
         $faculdadeController->actualizarFaculdade($id, $_POST['nome_faculdade'], $_POST['endereco']);
     });
     
-
     $router->delete('/sige_tutorias/faculdade/{id}/apagar', function($id) {
         $faculdadeController = new FaculdadeController();
         $faculdadeController->apagarFaculdade($id);
@@ -72,13 +79,11 @@
         $docenteController = new DocenteController();
         $docenteController->visualizarDocente($id);
     });
-
-   
+ 
     $router->get('/sige_tutorias/docentes', function() {
         $docenteController = new DocenteController();
         $docenteController->listarDocentes();
     });
-
 
     $router->post('/sige_tutorias/docente/{id}/actualizar', function($id) {
         $docenteController = new DocenteController();
@@ -272,14 +277,5 @@
         $avaliacaoController = new AvaliacaoController();
         $avaliacaoController->apagarAvaliacao($id);
     });
-    // --------------- Rota que nao sei qual e a ideia -------------//
-    $router->get('/', function() {
-        include "public/index.php";
-    });
-    $router->get('/home', function() {
-        include "app/Views/index.php";
-    });
-    $router->get('/exit', function() {
-        session_destroy();
-    });
+   
  $router->run();
