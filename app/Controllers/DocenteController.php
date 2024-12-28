@@ -46,8 +46,15 @@ class DocenteController{
     
     public function apagarDocente($id) {
         $docente = new Docente();
-        $docente->apagarDocente($id);
-    } 
+        $result = $docente->apagarDocente($id);
+
+        if($result){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 
 }
 

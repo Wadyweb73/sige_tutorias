@@ -80,12 +80,12 @@
             $conn = new Connect();
             $connection = $conn->connect();
     
-            $sqlRegistar = "INSERT INTO `tutoria1` (`id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `data_realizacao`, `descricao`) VALUES ('$id_disciplina', '$id_docente', '$hora_inicio', '$hora_termino','$data_registo', '$data_realizacao', '$descricao')";
+            $sqlRegistar = "INSERT INTO `tutoria` (`id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `data_realizacao`, `descricao`) VALUES ('$id_disciplina', '$id_docente', '$hora_inicio', '$hora_termino','$data_registo', '$data_realizacao', '$descricao')";
 
             if(mysqli_query($connection,$sqlRegistar)){
-                echo 'TUtoria Registada com Sucesso...';
+                return true;
             }else {
-                echo'ERRO ao Registar a tutoria'. mysqli_error($connection);
+               return false;
             }
 
 
@@ -121,8 +121,8 @@
                 if ($resultado->num_rows > 0) {
                     return $resultado->fetch_assoc();
                 } else {
-                    echo "Nenhuma Tutoria foi encontrada.";
-                    return null;
+                    
+                    return false;
                 }
             } else {
                 echo "Erro ao buscar a Tutoria: " . $stmt->error;
@@ -143,9 +143,9 @@
     
             if ($stmt->execute()) {
                 if ($stmt->affected_rows > 0) {
-                    echo "Tutoria atualizada com sucesso.";
+                    return true;
                 } else {
-                    echo "Nenhuma alteração foi feita ou Tutoria não encontrada.";
+                    return false;
                 }
             } else {
                 echo "Erro ao atualizar a Tutoria: " . $stmt->error;
@@ -164,9 +164,9 @@
     
             if ($stmt->execute()) {
                 if ($stmt->affected_rows > 0) {
-                    echo "Tutoria deletada com sucesso.";
+                    return true;
                 } else {
-                    echo "Tutoria não encontrada.";
+                    return false;
                 }
             } else {
                 echo "Erro ao deletar a Tutoria: " . $stmt->error;

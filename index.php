@@ -7,7 +7,7 @@
     include "app/Models/Tutoria.php";  include "app/Controllers/TutoriaController.php";
     include "app/Models/Docente.php"; include "app/Controllers/DocenteController.php";
     include "app/Models/Curso.php"; include "app/Controllers/CursoController.php";
-
+    include "app/Models/Avaliacao.php"; include "app/Controllers/AvaliacaoController.php";
 
     $router   = new Router();
     $GLOBALS['global'] = [
@@ -95,7 +95,6 @@
         $docenteController = new DocenteController();
         $docenteController->apagarDocente($id);
     });
-    
 
     // curso
 
@@ -224,6 +223,55 @@
         $disciplinaController->apagarDisciplina($id);
     });
 
+
+    //-------------------- avaliacao --------------------------------//
+    $router->post('/sige_tutorias/avaliacao/registar', function() {
+        $avaliacao = new Avaliacao();
+        $avaliacaoController = new AvaliacaoController();
+    
+        $avaliacao->setIdDisciplina($_POST['id_disciplina']);
+        $avaliacao->setIdDocente($_POST['id_docente']);
+        $avaliacao->setTesteNumero($_POST['teste_numero']);
+        $avaliacao->setSupervisor($_POST['supervisor']);
+        $avaliacao->setDataRealizacao($_POST['data_realizacao']);
+        $avaliacao->setDataRegisto(date("Y-m-d"));
+        $avaliacao->setHoraInicio($_POST['hora_inicio']);
+        $avaliacao->setHoraFim($_POST['hora_fim']);
+        $avaliacao->setLocal($_POST['local']);
+        $avaliacao->setModalidade($_POST['modalidade']);
+        $avaliacao->setTipoAvaliacao($_POST['tipo_avaliacao']);
+    
+        $avaliacaoController->registarAvaliacao($avaliacao);
+    });
+
+    $router->get('/sige_tutorias/avaliacao/visualizar/{id}', function($id) {
+        $avaliacaoController = new AvaliacaoController();
+        $avaliacaoController->visualizarAvaliacao($id);
+    });
+
+    $router->post('/sige_tutorias/avaliacao/actualizar/{id}', function($id) {
+        $avaliacao = new Avaliacao();
+        $avaliacaoController = new AvaliacaoController();
+    
+        $avaliacao->setIdDisciplina($_POST['id_disciplina']);
+        $avaliacao->setIdDocente($_POST['id_docente']);
+        $avaliacao->setTesteNumero($_POST['teste_numero']);
+        $avaliacao->setSupervisor($_POST['supervisor']);
+        $avaliacao->setDataRealizacao($_POST['data_realizacao']);
+        $avaliacao->setHoraInicio($_POST['hora_inicio']);
+        $avaliacao->setHoraFim($_POST['hora_fim']);
+        $avaliacao->setDataRegisto(date("Y-m-d"));
+        $avaliacao->setLocal($_POST['local']);
+        $avaliacao->setModalidade($_POST['modalidade']);
+        $avaliacao->setTipoAvaliacao($_POST['tipo_avaliacao']);
+    
+        $avaliacaoController->actualizarAvaliacao($avaliacao, $id);
+    });
+
+    $router->delete('/sige_tutorias/avaliacao/apagar/{id}', function($id) {
+        $avaliacaoController = new AvaliacaoController();
+        $avaliacaoController->apagarAvaliacao($id);
+    });
     // --------------- Rota que nao sei qual e a ideia -------------//
     $router->get('/', function() {
         include "public/index.php";
@@ -234,29 +282,4 @@
     $router->get('/exit', function() {
         session_destroy();
     });
-
-   
-    $router->run();
-
-    // --------------- Rota que nao sei qual e a ideia -------------//
-    $router->get('/sige_tutorias/', function() {
-        include('./app/Views/login.html');
-    });
-
-    $router->get('/sige_tutorias/faculdade/show', function() {
-        header("Location: ../app/Views/FaculdadeLista.html");
-    });
-
-    $router->get("/sige_tutorias/curso/show", function() {
-        header("Location: ../app/Views/CursoLista.html");
-    });
-
-    $router->get('/home', function() {
-        include "app/Views/index.php";
-    });
-
-    $router->get('siget_tutorias/exit', function() {
-        session_destroy();
-    });
-
-?>
+ $router->run();
