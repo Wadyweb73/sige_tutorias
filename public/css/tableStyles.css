@@ -83,7 +83,7 @@
 
 
 .mini-column {
-    width: 40px; /* Ajuste o valor conforme necessário */
+    width: 5em; /* Ajuste o valor conforme necessário */
     text-align: center; /* Centraliza o checkbox */
 }
 .delete-icon:hover{

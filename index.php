@@ -121,16 +121,17 @@
 
     $router->post('/sige_tutorias/curso/{id}/actualizar', function($id) {
         $cursoController = new CursoController();
+//        echo "{$id} -> {$_POST['nome']} -> {$_POST['id_faculdade']}";
+  //      die();
         $cursoController->actualizarCurso(
             $id,
-            $_POST['id_faculdade'],
-            $_POST['id_curso'],
-            $_POST['id_disciplina'],
-            $_POST['nome']
+            $_POST['nome'],
+            $_POST['id_faculdade']
         );
+
+        header("Location: /sige_tutorias/app/Views/CursoLista.html");
     });
 
-  
     $router->delete('/sige_tutorias/curso/{id}/apagar', function($id) {
         $cursoController = new CursoController();
         $cursoController->apagarCurso($id);
@@ -264,7 +265,5 @@
     $router->get('siget_tutorias/exit', function() {
         session_destroy();
     });
-
-    
 
 ?>

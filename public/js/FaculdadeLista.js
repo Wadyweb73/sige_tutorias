@@ -23,7 +23,8 @@ export async function getFaculdadeById(id) {
 }
 
 async function applyEvents() {
-    const deleteButtons = document.querySelectorAll('.js-delete-button');
+    const deleteButtons    = document.querySelectorAll('.js-delete-button');
+    const editCursoButtons = document.querySelectorAll('.js-edit-button'); 
 
     for (const button of deleteButtons) {
         button.addEventListener('click', async () => {
@@ -31,10 +32,24 @@ async function applyEvents() {
             const deleteResponse = await fetch(`/sige_tutorias/faculdade/${id_faculdade}/apagar`, {
                 method: 'DELETE'
             });
-
-            console.log(deleteResponse)
         });
     };
+
+    editCursoButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const faculId = button.dataset.faculId;
+            
+         window.location.href = `/sige_tutorias/app/Views/FaculdadeUpdate.php?v=${faculId}`;
+        });
+    })
+
+    document.querySelector('.add-button').addEventListener('click', () => {
+        window.location.href = '../../app/Views/FaculdadeForm.html';
+    });
+
+    document.querySelector('.edit-button').addEventListener('click', () => {
+        window.location.href = '../../app/Views/FaculdadeForm.html';
+    });
 }
 
 async function updatePageContent() {
@@ -56,7 +71,10 @@ async function updatePageContent() {
                     <td>${faculdade.nome_facul}</td>
                     <td>${faculdade.endereco}</td>
                     <td class="actions mini-column">
-                        <i class="fas fa-trash-alt delete-icon js-delete-button" data-facul-id=${faculdade.id_faculdade}></i>
+                        <div class="js-action-buttons-container">
+                            <i class="fas fa-trash-alt delete-icon js-delete-button" data-facul-id=${faculdade.id_faculdade}></i>
+                            <i class="fa-solid fa-pen-to-square js-edit-button" data-facul-id="${faculdade.id_faculdade}"></i>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -66,15 +84,7 @@ async function updatePageContent() {
     }
 
     document.querySelector(`.js-table-body`).innerHTML = `${table_content}`;
-
     applyEvents();
-
-    document.querySelector('.add-button').addEventListener('click', () => {
-        window.location.href = '../../app/Views/FaculdadeForm.html';
-    });
-    document.querySelector('.edit-button').addEventListener('click', () => {
-        window.location.href = '../../app/Views/FaculdadeForm.html';
-    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,5 +1,6 @@
 <?php
-    include_once("../sige_tutorias/app/Models/Curso.php");
+
+include_once("../sige_tutorias/app/Models/Curso.php");
 
 class CursoController{
 

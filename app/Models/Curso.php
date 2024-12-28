@@ -91,15 +91,22 @@
 
             $sqlActualizar = "UPDATE `curso` SET `nome_curso`=?,`id_faculdade`=? WHERE `id_curso` = ?";
             $stmt = $connection->prepare($sqlActualizar);
-            $stmt->bind_param("under",$this->nome_curso,$this->id_faculdade,$id);
+            $stmt->bind_param("sss", $this->nome_curso, $this->id_faculdade, $id);
 
-            if($stmt->execute()){
-                echo'Curso Actualizado';
-            }else {
-                echo 'ERRO ao Actualizar a Faculdade';
+            print_r($stmt);
+            die();
+
+            try {
+                if($stmt->execute()){
+                    return true;
+                }
             }
+            catch(Exception $e) {
+                die($e->getMessage());
+            }
+
             mysqli_close($connection);
-            
+            return false; 
         }
         
         public function apagarCurso(){
@@ -112,13 +119,12 @@
             $stmt->bind_param("i", $id);
 
             if ($stmt->execute()) {
-                echo "Faculdade apagada com sucesso!";
-            } else {
-                echo "Erro ao apagar a faculdade: " . $connection->error;
+                echo json_encode(['request_status' => true]);
+                return;
             }
 
             mysqli_close($connection); 
-        
+            echo json_encode(['request_status' => false]);
         }
     }
 ?>

@@ -24,6 +24,14 @@ export async function getCursoById(id) {
     return await response.json();
 }
 
+export async function deleteCursoById(id) {
+    const response = await fetch(`/sige_tutorias/docente/${id}/apagar`, {
+        method: 'DELETE'
+    });
+
+    return response.json();
+}
+
 async function updatePageContent() {
     const table  = document.querySelector('.js-table-body');
     const cursos = await listarCursos();
@@ -46,7 +54,10 @@ async function updatePageContent() {
                     <td>${curso.nome_curso}</td>    
                     <td>${faculdade_res.nome_facul}</td>
                     <td class="actions mini-column">
-                        <i class="fas fa-trash-alt delete-icon"></i>
+                        <div class="js-action-buttons-container">
+                            <i class="fas fa-trash-alt delete-icon js-delete-button" data-curso-id="${curso.id_curso}"></i>
+                            <i class="fa-solid fa-pen-to-square js-edit-button" data-curso-id="${curso.id_curso}"></i>
+                        </div>
                     </td>
                 </tr>
             `;
@@ -60,17 +71,39 @@ async function updatePageContent() {
 }
 
 export function applyEvents() {
-    const addCursoButton  = document.querySelector('.add-button');
-    const editCursoButton = document.querySelector('.edit-button'); 
-    const checkboxes      = document.querySelectorAll('.single-checkbox');
+    const addCursoButton     = document.querySelector('.add-button');
+    const deleteCursoButtons = document.querySelectorAll('.js-delete-button');
+    const editCursoButtons   = document.querySelectorAll('.js-edit-button'); 
+    const checkboxes         = document.querySelectorAll('.single-checkbox');
+
     
     addCursoButton.addEventListener('click', () => {
         window.location.href = "../../app/Views/CursoForm.html";
     })
 
-    editCursoButton.addEventListener('click', () => {
-        window.location.href = '../../app/Views/CursoForm.html';
+    editCursoButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const cursoId = button.dataset.cursoId;
+
+            window.location.href = `/sige_tutorias/app/Views/CursoUpdate.php?v=${cursoId}`;
+        })
     })
+
+    for (const button of deleteCursoButtons) {
+        button.addEventListener('click', async () => {
+            const cursoId  = button.dataset.cursoId;
+            const response = await deleteCursoById(cursoId);
+
+            console.log(response)
+
+            if (response === false) {
+                console.log("Somethig went wrong deleting this record!");
+                return;
+            }
+
+            console.log("Sucessfully deleted!");
+        })   
+    }
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', function() {
