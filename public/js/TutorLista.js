@@ -1,4 +1,5 @@
 import { getDisciplinaById } from "./DisciplinaLista.js";
+import { applyEvents } from "./CursoLista.js";
 import { getFaculdadeById } from "./FaculdadeLista.js";
 
 function applyEvents() {

@@ -3,6 +3,8 @@
         private $id_docente;
         private $id_faculdade;
         private $nome;
+        private $password;
+        private $email;
         private $id_disciplina;
         private $id_curso;
 
@@ -23,25 +25,43 @@
             return $this->id_disciplina;
         }
 
+        public function getEmail(){ return $this->email; }
+        public function getPassword(){ return $this->password; }
+
         //setters
-        public function set_idDocente($idDocente){
-            $this->id_docente = $idDocente;
-        }
-        public function set_idFaculdade($idFaculdade){
-            $this->id_faculdade = $idFaculdade;
-        }
-        public function set_nome($nome){
-            $this->nome = $nome;
-        }
-        public function set_idCurso($idCurso){
-            $this->id_curso = $idCurso;
-        }
-        public function set_idDisciplina($idDisciplina){
-            $this->id_disciplina = $idDisciplina;
-        }
+        public function set_idDocente($idDocente){ $this->id_docente = $idDocente; }
+        public function set_idFaculdade($idFaculdade){ $this->id_faculdade = $idFaculdade; }
+        public function set_nome($nome){ $this->nome = $nome; }
+        public function set_idCurso($idCurso){ $this->id_curso = $idCurso; }
+        public function set_idDisciplina($idDisciplina){ $this->id_disciplina = $idDisciplina; }
+        public function setEmail($email){  $this->email = $email; }
+        public function setPassword($password){ $this->password = $password; }
 
         //DB
+        public function autenticar($credenciais){
+            $conn = new Connect();
+            $connection = $conn->connect();
+            $email = $credenciais->getEmail();
+            $password = $credenciais->getPassword();
 
+            $sqlAutenticar = "SELECT * FROM `docente` WHERE `email` = ? AND `password` = ?";
+            $stmt = $connection->prepare($sqlAutenticar);
+            $stmt->bind_param("ss",$email,$password);
+
+            if($stmt->execute()){
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return mysqli_error($connection);
+            }
+            mysqli_close($connection);
+        }
+               
+        
         public function registarDocente(){
             $conn = new Connect();
             $connection = $conn->connect();

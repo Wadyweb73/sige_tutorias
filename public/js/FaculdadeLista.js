@@ -1,12 +1,13 @@
+
+
 export async function listarFaculdades() {
-    const response = await fetch('/sige_tutorias/faculdades', {
-        method: 'GET'
-    })
+    const response = await fetch('/sige_tutorias/faculdades')
 
     if(!response.ok) {
         return false;
     }
     
+    // console.log(response);
     return response.json();
 }
 

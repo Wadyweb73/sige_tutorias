@@ -7,7 +7,7 @@
     include "app/Models/Tutoria.php";  include "app/Controllers/TutoriaController.php";
     include "app/Models/Docente.php"; include "app/Controllers/DocenteController.php";
     include "app/Models/Curso.php"; include "app/Controllers/CursoController.php";
-    include "app/Models/User.php"; include "app/Controllers/UserController.php";
+
 
     $router   = new Router();
     $GLOBALS['global'] = [
@@ -17,6 +17,7 @@
     $router->get('/sige_tutorias/teste', function() {
         echo "Rota de teste funcionando!";
     });
+
 
     /*----------------- FACULDADE ----------------------*/
     $router->post('/sige_tutorias/faculdade/registar', function() {
@@ -223,25 +224,17 @@
         $disciplinaController->apagarDisciplina($id);
     });
 
+    // --------------- Rota que nao sei qual e a ideia -------------//
+    $router->get('/', function() {
+        include "public/index.php";
+    });
+    $router->get('/home', function() {
+        include "app/Views/index.php";
+    });
+    $router->get('/exit', function() {
+        session_destroy();
+    });
 
-    //Auth
-    $router->get('/entrar', function() {
-        include "app/Views/auth/login.php";
-    });
-    $router->get('/registar', function() {
-        include "app/Views/auth/signin.php";
-    });
-    $router->post('/entrar', function() {
-        $user = new User();
-        $userController = new UserController();
-        $user->set_uEmail($_POST['email']);
-        $user->set_uPasswd($_POST['passwd']);
-        
-        if($userController->login($user->get_uEmail(), $user->get_uPasswd())){
-            header("Location: /home");
-        }
-        
-    });
    
     $router->run();
 
