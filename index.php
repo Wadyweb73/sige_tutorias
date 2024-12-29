@@ -18,6 +18,13 @@
         echo "Rota de teste funcionando!";
     });
 
+    $router->get('/sige_tutorias', function() {
+        include "app/Views/login.html";
+    });
+    $router->get('/sige_tutorias/', function() {
+        include "app/Views/login.html";
+    });
+
 
     $router->post('/sige_tutorias/entrar', function() {
         $docente =new Docente();
