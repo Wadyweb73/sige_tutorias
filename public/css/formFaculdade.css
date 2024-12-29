@@ -8,41 +8,42 @@
 }
 
 html, body {
-    min-height: 100%;
+    height: 100%;
     width: 100%;
 }
+
 body {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
 .sidebar {
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 1em;
+    padding: .5em;
     flex-basis: 13%;
     row-gap: 1em;
-    background-color: #B6D6E9;
-    min-height: 100%;
+    background-color: #028133;
+    height: 100%;
+}
+.sidebar li a {
+    color: #fff;
+    text-decoration: none;
 }
 .logo-container {
-    border-bottom: 1px solid;
+    background-color: #fff;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 1em;
-    height: 100%;
-    height: 4em;;
 }
 .logo {
-    width: 4em;
+    width: 200px;
 }
 .sidebar-buttons-container {
     display: flex;
     flex-direction: column;
     row-gap: 1em;
-    flex-grow: 1;
+    flex-grow: 1; /* Expande para preencher a altura */
 }
 li {
     list-style: none;
@@ -65,7 +66,7 @@ header {
     align-items: center;
     column-gap: 0.5em;
     color: #fff;
-    background: #0078C1;
+    background: #333;
     padding: 0.4em 0.5em;
     border-radius: 50px;
 }
@@ -80,8 +81,10 @@ main {
     height: 100%;
 }
 .main-title-container {
-    background: #B6D6E9;
-    color: #0078C1;
+    display: flex;
+    justify-content: space-between;
+    /* background: #63c76a; */
+    color: #333;
     padding: 0.5em;
     border-radius: 0.4em;
 }.main-content {
@@ -112,9 +115,35 @@ main {
     resize: none;
 
 }.submit-button {
-    background-color: #0078C1;
+    background-color: #028133;
     padding: 1em 2em;
     border: none;
     border-radius: 0.4em;
-    color: #B6D6E9;
+    color: #fff;
+    font-weight: bold;
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #cfcfcf;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.left-choose-docente-components {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 0.5em;
+}
+.docente-name-input {
+    flex-basis: 100%;
+}
+.choose-docente-button {
+    background: #fff;
+    padding: 0.5em 1em;
+    border: 2px solid #cfcfcf;
+    cursor: pointer ;
+}
+.choose-docente-button:hover {
+    color: #fff;    
 }
