@@ -55,8 +55,6 @@ class DocenteController{
             return false;
         }
     }
-    
-    } 
 
 }
 
