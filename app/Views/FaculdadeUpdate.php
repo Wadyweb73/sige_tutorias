@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../public/css/home.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="../../public/css/formFaculdade.css">
+    <script type="module" src="../../public/js/FaculdadeUpdate.js"></script>
+    <title>Editar Faculdade</title>
 </head>
 <body>
     <div class="sidebar">
@@ -16,7 +17,7 @@
             <li><a href="./home.html">Home</a></li>
             <li><a href="./FaculdadeLista.html">Faculdades</a></li>
             <li><a href="./CursoLista.html">Cursos</a></li>
-            <li><a href="TutorLista.html">Tutores</a></li>
+            <li><a href="./TutorLista.html">Tutores</a></li>
             <li><a href="./TutoriaLista.html">Tutorias</a></li>
             <li><a href="./DisciplinaLista.html">Disciplinas</a></li>
             <li><a href="#">Testes</a></li>
@@ -35,19 +36,14 @@
         
         <main>
             <div class="main-title-container">
-                <h1>Dashboard</h1>
+                <h1>Editar Faculdade</h1>
             </div>
 
-            <div class="dashboard-cards">
-                <div class="card card-1">Tutorias <div>20</div></div>
-                <div class="card card-2">Centros de recursos <div>20</div></div>
-                <div class="card card-3">Relatorios <div>20</div></div>
-                <div class="card card-4">Overview <div>20</div></div>
-            </div>
-
-            <div class="main-content">
-                
-            </div>
+            <!-- 
+                <form>
+                    Conteudo gerado por JS
+                </form>
+            -->
         </main>
     </div>
 </body>

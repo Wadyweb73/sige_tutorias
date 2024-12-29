@@ -1,4 +1,12 @@
-    import { getCursoById, applyEvents } from "./CursoLista.js";
+    import { getCursoById } from "./CursoLista.js";
+
+function applyEvents() {
+    const addButton    = document.querySelector('.add-button');
+
+    addButton.addEventListener('click', function() {
+        window.location.pathname = "/sige_tutorias/app/Views/DisciplinaForm.html" ;
+    })
+}
 
     export async function listarDisciplinas() {
         const response = await fetch('/sige_tutorias/disciplinas', {
@@ -33,7 +41,6 @@
             
             const html = `
                 <tr>
-                    <td class="mini-column"><input class="single-checkbox" type="checkbox" name="id-curso" data-curso-id="${disciplina.id_disciplina}"></td>
                     <td>${disciplina.nome_disciplina}</td>
                     <td>${curso_res.nome_curso}</td>
                     <td class="actions mini-column">

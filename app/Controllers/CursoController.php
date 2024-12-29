@@ -1,5 +1,6 @@
 <?php
-    include_once("../sige_tutorias/app/Models/Curso.php");
+
+include_once("../sige_tutorias/app/Models/Curso.php");
 
 class CursoController{
 
@@ -17,14 +18,11 @@ class CursoController{
         }
     }
 
-
     public function listarCursos(){
         $cursoList = new Curso();
         $curso = $cursoList->listarCursos();
         echo json_encode($curso);
-        
     }
-
 
     public function actualizarCurso($id,$nomeCurso,$idFaculdade){
         $curso = new Curso();

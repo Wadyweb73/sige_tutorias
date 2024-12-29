@@ -71,8 +71,8 @@
             $idCurso = $this->get_idCurso();
             $idDisciplina = $this->get_idDisciplina();
 
-            $sqlRegistar = "INSERT INTO `docente` (`id_docente`, `id_faculdade`, `id_curso`, `id_disciplina`, `nome_docente`) 
-            VALUES ('$idDocente', '$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
+            $sqlRegistar = "INSERT INTO `docente` (`id_faculdade`, `id_curso`, `id_disciplina`, `nome_docente`) 
+            VALUES ('$idFaculdade', '$idCurso', '$idDisciplina', '$nome')";
 
             if (mysqli_query($connection, $sqlRegistar)) {
                return true;
@@ -151,11 +151,11 @@
         }
         
 
-        public function apagarDocente(){
+        public function apagarDocente($id){
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlApagar = "DELETE FROM `docente1` WHERE 'id_docente' = ?";
+            $sqlApagar = "DELETE FROM `docente` WHERE 'id_docente' = ?";
             $stmt = $connection->prepare($sqlApagar);
             $stmt->bind_param("i", $id);
         

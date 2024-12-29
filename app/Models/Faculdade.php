@@ -38,9 +38,9 @@
             $sqlRegistar = "INSERT INTO `faculdade` (`nome_facul`, `endereco`) VALUES ('$nme', '$ende')";
         
             if (mysqli_query($connection, $sqlRegistar)) {
-                echo "Faculdade registada com sucesso!";
+                return true;
             } else {
-                echo "Erro ao registrar a faculdade: " . mysqli_error($connection);
+                return false;
             }
 
             mysqli_close($connection);
@@ -61,7 +61,7 @@
                    
                     return $faculdade;
                 } else {
-                    echo "Nenhuma faculdade encontrada.";
+                   
                     return null;
                 }
             } else {
@@ -96,31 +96,31 @@
             $conn = new Connect();
             $connection = $conn->connect();
 
-            $sqlAtualizar = "UPDATE `faculdade` SET `nome_facul` = ?, `endereco` = ? WHERE `id_facul` = ?";
+            $sqlAtualizar = "UPDATE `faculdade` SET `nome_facul` = ?, `endereco` = ? WHERE `id_faculdade` = ?";
             $stmt = $connection->prepare($sqlAtualizar);
             $stmt->bind_param("ssi", $this->nome_faculdade, $this->endereco, $id);
 
             if ($stmt->execute()) {
-                echo "Faculdade actualizada!";
+                return true;
             } else {
-                echo "Erro ao actualizar a faculdade: " . $connection->error;
+                return false;
             }
 
             mysqli_close($connection);   
         }
 
-        public function apagarFaculdade(){
+        public function apagarFaculdade($id){
             $conn = new Connect();
             $connection = $conn->connect();
         
-            $sqlApagar = "DELETE FROM `faculdade` WHERE `id_facul` = ?";
+            $sqlApagar = "DELETE FROM `faculdade` WHERE `id_faculdade` = ?";
             $stmt = $connection->prepare($sqlApagar);
             $stmt->bind_param("i", $id);
         
             if ($stmt->execute()) {
-                echo "Faculdade apagada com sucesso!";
+                return true;
             } else {
-                echo "Erro ao apagar a faculdade: " . $connection->error;
+                return false;
             }
         
             mysqli_close($connection); 
