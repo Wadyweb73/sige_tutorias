@@ -282,5 +282,3 @@
     });
    
     $router->run();
-
- $router->run();
