@@ -10,7 +10,7 @@
     table-layout: fixed;
   }
   .tbl-header{
-    background-color: rgba(255,255,255,0.3);
+    background-color: #eaeaea;
    }
   .tbl-content{
     overflow-x:auto;
@@ -21,11 +21,11 @@
     text-align: left;
     font-weight: 500;
     font-size: 16px;
-    color: #fff;
+    color: #333;
     text-transform: uppercase;
   }
   tbody > tr:hover {
-    background-color: #0078c1;
+    background-color: #63c76a;
   }
   td{
     padding: 15px;
@@ -33,9 +33,7 @@
     vertical-align:middle;
     font-size: 13px;
     font-weight: 500;
-    color: #fff;
-    border-bottom: solid 1px rgba(255,255,255,0.3) !important;
-    border-left: solid 1px rgba(255, 255, 255, 0.3) !important;
+    color: #333;
   }
   .buttons-container {
     display: flex;
@@ -59,8 +57,9 @@
     box-shadow: 0 0 2px 1px #ffffff94;
   }
   .add-button {
-    background: #0078c1;
-    color: #000;
+    color: #333;
+    background-color: #63c76a;
+    font-weight: bold;
   }
   .edit-button {
     outline: 1px solid #0077c16b;
@@ -91,32 +90,4 @@
 }
 .edit-icon {
     width: 1.3em;
-}
-.buttons-container {
-    display: flex;
-    flex-direction: row;
-    column-gap: 0.2em;
-    justify-content: flex-end;
-    margin-bottom: 0.5em
-}
-.action-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    column-gap: 0.4em;
-    width: fit-content;
-    padding: 0.8em;
-    border: none;
-    border-radius: 0.4em;
-    cursor: pointer;
-}
-.action-button:hover {
-    box-shadow: 0 0 2px 1px #ffffff94;
-}
-.add-button {
-    background: #0078c1;
-    color: #000;
-}
-.edit-button {
-    outline: 1px solid #0077c16b;
 }

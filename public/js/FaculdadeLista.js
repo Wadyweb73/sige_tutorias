@@ -68,7 +68,6 @@ async function updatePageContent() {
         faculdades.forEach((faculdade) => {
             const html = `
                 <tr>
-                    <td class="mini-column"><input type="checkbox" class="single-checkbox" name="id-curso" data-curso-id="${faculdade.id_faculdade}"></td>
                     <td>${faculdade.nome_facul}</td>
                     <td>${faculdade.endereco}</td>
                     <td class="actions mini-column">

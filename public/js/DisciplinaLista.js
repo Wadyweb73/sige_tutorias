@@ -41,7 +41,6 @@ function applyEvents() {
             
             const html = `
                 <tr>
-                    <td class="mini-column"><input class="single-checkbox" type="checkbox" name="id-curso" data-curso-id="${disciplina.id_disciplina}"></td>
                     <td>${disciplina.nome_disciplina}</td>
                     <td>${curso_res.nome_curso}</td>
                     <td class="actions mini-column">

@@ -72,6 +72,9 @@
         
         $docenteController->registarDocente($docente);
 
+        include("../app/Views/TutorLista.html");
+        return "ola";
+
         header("Location: ../app/Views/TutorLista.html");
     });
 

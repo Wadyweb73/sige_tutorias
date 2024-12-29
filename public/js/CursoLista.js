@@ -50,7 +50,6 @@ async function updatePageContent() {
             
             const html = `
                 <tr>
-                    <td class="mini-column"><input type="checkbox" class="single-checkbox" name="id-curso" data-curso-id="${curso.id_curso}"></td>
                     <td>${curso.nome_curso}</td>    
                     <td>${faculdade_res.nome_facul}</td>
                     <td class="actions mini-column">
