@@ -27,11 +27,23 @@
 
 
     $router->post('/sige_tutorias/entrar', function() {
-        $docente =new Docente();
-        $docente->setEmail($_POST['email']);
-        $docente->setPassword($_POST['password']);
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (!isset($data['email']) || !isset($data['password'])) {
+            echo json_encode(["error" => "Dados inválidos!"]);
+            http_response_code(400); 
+            exit();
+        }
+
+        $docente = new Docente();
+        $docente->setEmail($data['email']);
+        $docente->setPassword($data['password']);
+
         $docenteController = new DocenteController();
-        $docenteController->autenticar($docente);        
+        $autenticado = $docenteController->autenticar($docente);
+
+        header('Content-Type: application/json');
+        echo json_encode($autenticado);
+        exit();
     });
 
     /*----------------- FACULDADE ----------------------*/
