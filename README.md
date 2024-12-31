@@ -1,4 +1,3 @@
-
 # Sistema de Gestão de Tutorias
 Este é um projecto de desenvolvimento de um Sistema de Gestão de Tutorias para o Centro de Ensino à Distância da Universidade Pedagógica de Maputo
 ### Descrição e Objectivo do Sistema
@@ -6,348 +5,156 @@ O sistema a ser desenvolvido tem como objectivo auxiliar os docentes e discentes
 O sistema deverá permitir que, ao final de cada tutoria presencial, os tutores possam escrever um relatório sobre o evento, indicando o número da tutoria (se é a primeira, segunda, terceira ou outra), o local (Centro e Recursos), os assuntos abordados e quantos o estudantes se fizeram presentes.
 
 
-## Documentação da API
-
-## Faculdade
-
-### 1. Registrar Faculdade
-**Endpoint:**
-```
-POST /faculdade/registar
-```
-**Request Body:**
-```json
-{
-    "nome_faculdade": "string",
-    "endereco": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Faculdade registrada com sucesso."
-}
-```
+## Documentação da API e Fluxo do Programa
+## 1. **Login**
+- **Rota**: `/sige_tutorias`
+  - Exibe a página de login (`login.html`).
+- **POST**: `/sige_tutorias/login`
+  - Controlador: `UserController`
+  - Verifica credenciais do usuário e autentica.
+- **POST**: `/sige_tutorias/entrar`
+  - Dados no corpo da requisição: `email`, `password`.
+  - Controlador: `DocenteController`
+  - Retorna uma resposta JSON com o resultado da autenticação.
 
 ---
 
-### 2. Visualizar Faculdade
-**Endpoint:**
-```
-GET /faculdade/{id}
-```
-**Path Parameters:**
-- `id` (int): ID da faculdade
-
-**Response:**
-```json
-{
-    "id": "int",
-    "nome_faculdade": "string",
-    "endereco": "string"
-}
-```
+## 2. **Registo de Usuário**
+- **GET**: `/sige_tutorias/registar`
+  - Exibe o formulário de registo de usuário (`signup.html`).
+- **POST**: `/sige_tutorias/signup`
+  - Controlador: `UserController`
+  - Regista um novo usuário com as informações fornecidas.
 
 ---
 
-### 3. Listar Faculdades
-**Endpoint:**
-```
-GET /faculdades
-```
-**Response:**
-```json
-[
-    {
-        "id": "int",
-        "nome_faculdade": "string",
-        "endereco": "string"
-    },
-    ...
-]
-```
+## 3. **Faculdades**
+### Registo de Faculdade
+- **POST**: `/sige_tutorias/faculdade/registar`
+  - Dados enviados via `POST`: `nome_faculdade`, `endereco`.
+  - Controlador: `FaculdadeController`
+  - Redireciona para a página de lista de faculdades.
+
+### Listagem e Visualização
+- **GET**: `/sige_tutorias/faculdades`
+  - Lista todas as faculdades.
+- **GET**: `/sige_tutorias/faculdade/{id}`
+  - Exibe os detalhes de uma faculdade específica.
+
+### Atualização
+- **POST**: `/sige_tutorias/faculdade/{id}/actualizar`
+  - Atualiza as informações de uma faculdade.
+
+### Exclusão
+- **DELETE**: `/sige_tutorias/faculdade/{id}/apagar`
+  - Apaga uma faculdade.
 
 ---
 
-### 4. Atualizar Faculdade
-**Endpoint:**
-```
-POST /faculdade/{id}/actualizar
-```
-**Path Parameters:**
-- `id` (int): ID da faculdade
+## 4. **Tutores (Docentes)**
+### Registo de Tutor
+- **POST**: `/sige_tutorias/docente/registar`
+  - Dados enviados via `POST`: `id_faculdade`, `id_curso`, `id_disciplina`, `nome`.
+  - Controlador: `DocenteController`
+  - Regista um novo tutor e redireciona para a lista de tutores.
 
-**Request Body:**
-```json
-{
-    "nome_faculdade": "string",
-    "endereco": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Faculdade atualizada com sucesso."
-}
-```
+### Listagem e Visualização
+- **GET**: `/sige_tutorias/docentes`
+  - Lista todos os tutores.
+- **GET**: `/sige_tutorias/docente/{id}`
+  - Exibe os detalhes de um tutor específico.
+
+### Atualização
+- **POST**: `/sige_tutorias/docente/{id}/actualizar`
+  - Atualiza as informações de um tutor.
+
+### Exclusão
+- **DELETE**: `/sige_tutorias/docente/{id}/apagar`
+  - Apaga um tutor.
 
 ---
 
-### 5. Apagar Faculdade
-**Endpoint:**
-```
-DELETE /faculdade/{id}/apagar
-```
-**Path Parameters:**
-- `id` (int): ID da faculdade
+## 5. **Cursos**
+### Registo de Curso
+- **POST**: `/sige_tutorias/curso/registar`
+  - Dados enviados via `POST`: `id_faculdade`, `nome`.
+  - Controlador: `CursoController`
+  - Regista um novo curso e redireciona para a lista de cursos.
 
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Faculdade apagada com sucesso."
-}
-```
+### Listagem e Visualização
+- **GET**: `/sige_tutorias/cursos`
+  - Lista todos os cursos.
+- **GET**: `/sige_tutorias/curso/{id}`
+  - Exibe os detalhes de um curso específico.
 
----
+### Atualização
+- **POST**: `/sige_tutorias/curso/{id}/actualizar`
+  - Atualiza as informações de um curso.
 
-## Docente
-
-### 1. Registrar Docente
-**Endpoint:**
-```
-POST /docente/registar
-```
-**Request Body:**
-```json
-{
-    "id_faculdade": "int",
-    "id_curso": "int",
-    "id_disciplina": "int",
-    "nome": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Docente registrado com sucesso."
-}
-```
+### Exclusão
+- **DELETE**: `/sige_tutorias/curso/{id}/apagar`
+  - Apaga um curso.
 
 ---
 
-### 2. Visualizar Docente
-**Endpoint:**
-```
-GET /docente/{id}
-```
-**Path Parameters:**
-- `id` (int): ID do docente
+## 6. **Tutorias**
+### Registo de Tutoria
+- **POST**: `/sige_tutorias/tutoria/registar`
+  - Dados enviados via `POST`: `id_disciplina`, `id_docente`, `hora_inicio`, `hora_termino`, `data_registo`, `descricao`.
+  - Controlador: `TutoriaController`
+  - Regista uma nova tutoria e redireciona para a lista de tutorias.
 
-**Response:**
-```json
-{
-    "id": "int",
-    "nome": "string",
-    "id_faculdade": "int",
-    "id_curso": "int",
-    "id_disciplina": "int"
-}
-```
+### Atualização
+- **POST**: `/sige_tutorias/tutoria/{id}/actualizar`
+  - Atualiza as informações de uma tutoria.
 
 ---
 
-### 3. Listar Docentes
-**Endpoint:**
-```
-GET /docentes
-```
-**Response:**
-```json
-[
-    {
-        "id": "int",
-        "nome": "string",
-        "id_faculdade": "int",
-        "id_curso": "int",
-        "id_disciplina": "int"
-    },
-    ...
-]
-```
+## 7. **Disciplinas**
+### Registo de Disciplina
+- **POST**: `/sige_tutorias/disciplina/registar`
+  - Dados enviados via `POST`: `nome_disciplina`, `id_curso`.
+  - Controlador: `DisciplinaController`
+  - Regista uma nova disciplina.
+
+### Listagem e Visualização
+- **GET**: `/sige_tutorias/disciplinas`
+  - Lista todas as disciplinas.
+- **GET**: `/sige_tutorias/disciplina/{id}`
+  - Exibe os detalhes de uma disciplina específica.
+
+### Atualização
+- **POST**: `/sige_tutorias/disciplina/{id}/actualizar`
+  - Atualiza as informações de uma disciplina.
+
+### Exclusão
+- **DELETE**: `/sige_tutorias/disciplina/{id}/apagar`
+  - Apaga uma disciplina.
 
 ---
 
-### 4. Atualizar Docente
-**Endpoint:**
-```
-POST /docente/{id}/actualizar
-```
-**Path Parameters:**
-- `id` (int): ID do docente
+## 8. **Avaliações**
+### Registo de Avaliação
+- **POST**: `/sige_tutorias/avaliacao/registar`
+  - Dados enviados via `POST`: `id_disciplina`, `id_docente`, `teste_numero`, `supervisor`, `data_realizacao`, `hora_inicio`, `hora_fim`, `local`, `modalidade`, `tipo_avaliacao`.
+  - Controlador: `AvaliacaoController`
+  - Regista uma nova avaliação.
 
-**Request Body:**
-```json
-{
-    "id_faculdade": "int",
-    "id_curso": "int",
-    "id_disciplina": "int",
-    "nome": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Docente atualizado com sucesso."
-}
-```
+### Visualização
+- **GET**: `/sige_tutorias/avaliacao/visualizar/{id}`
+  - Exibe os detalhes de uma avaliação específica.
+
+### Atualização
+- **POST**: `/sige_tutorias/avaliacao/actualizar/{id}`
+  - Atualiza as informações de uma avaliação.
+
+### Exclusão
+- **DELETE**: `/sige_tutorias/avaliacao/apagar/{id}`
+  - Apaga uma avaliação.
 
 ---
 
-### 5. Apagar Docente
-**Endpoint:**
-```
-DELETE /docente/{id}/apagar
-```
-**Path Parameters:**
-- `id` (int): ID do docente
-
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Docente apagado com sucesso."
-}
-```
-
-### 6. Autenticar Docente
-**Endpoint:**
-```
-POST /docente/autenticar
-```
-**Request Body:**
-```json
-{
-   
-    "email": "string",
-    "password": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Docente registrado com sucesso."
-}
-```
-
----
-
-## Curso
-
-### 1. Registrar Curso
-**Endpoint:**
-```
-POST /curso/registar
-```
-**Request Body:**
-```json
-{
-    "id_faculdade": "int",
-    "nome": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Curso registrado com sucesso."
-}
-```
-
----
-
-### 2. Visualizar Curso
-**Endpoint:**
-```
-GET /curso/{id}
-```
-**Path Parameters:**
-- `id` (int): ID do curso
-
-**Response:**
-```json
-{
-    "id": "int",
-    "nome": "string",
-    "id_faculdade": "int"
-}
-```
-
----
-
-### 3. Listar Cursos
-**Endpoint:**
-```
-GET /cursos
-```
-**Response:**
-```json
-[
-    {
-        "id": "int",
-        "nome": "string",
-        "id_faculdade": "int"
-    },
-    ...
-]
-```
-
----
-
-### 4. Atualizar Curso
-**Endpoint:**
-```
-POST /curso/{id}/actualizar
-```
-**Path Parameters:**
-- `id` (int): ID do curso
-
-**Request Body:**
-```json
-{
-    "id_faculdade": "int",
-    "nome": "string"
-}
-```
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Curso atualizado com sucesso."
-}
-```
-
----
-
-### 5. Apagar Curso
-**Endpoint:**
-```
-DELETE /curso/{id}/apagar
-```
-**Path Parameters:**
-- `id` (int): ID do curso
-
-**Response:**
-```json
-{
-    "status": "success",
-    "message": "Curso apagado com sucesso."
-}
-```
-
----
+## Observações Finais
+- Todas as requisições são geridas por um sistema de rotas utilizando a classe `Router`.
+- A estrutura do programa está separada em **Models**, **Controllers** e **Views**, garantindo organização e legibilidade.
+- Os redirecionamentos utilizam páginas HTML específicas para exibir os resultados das operações (ex.: `FaculdadeLista.html`, `TutorLista.html`).
